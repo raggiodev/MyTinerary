@@ -1,22 +1,43 @@
-import React from 'react';
-import cities from '../data/cities';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import leftArrow from '../../public/leftArrow.svg';
+import rightArrow from '../../public/rightArrow.svg';
 
-const Carousel = () => {
+const Carousel = ({ children }) => {
+  const elementsArray = React.Children.toArray(children);
+  const [startIndex, setStartIndex] = useState(0);
+
+  const visibleElements = elementsArray.slice(startIndex, startIndex + 3);
+
+  const previous = () => {
+    const newStartIndex = (startIndex - 1 + elementsArray.length) % elementsArray.length;
+    setStartIndex(newStartIndex);
+  };
+
+  const next = () => {
+    const newStartIndex = (startIndex + 1) % elementsArray.length;
+    setStartIndex(newStartIndex);
+  };
+
   return (
-    <section className="bg-white py-8">
-      <h2 className="text-2xl font-semibold mb-6">Popular Mytineraries</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cities.map(city => (
-          <Link to={`/city/${city.country}`} key={city.country}>
-            <div className="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg">
-              <img src={city.photo} alt={`City: ${city.country}`} className="w-full h-40 object-cover mb-2 rounded-lg" />
-              <p className="text-lg font-semibold">{city.country}</p>
-            </div>
-          </Link>
+    <div className="flex items-center justify-center mt-8">
+      <button onClick={previous} className="text-gray-500 hover:text-gray-700 cursor-pointer">
+        <img src={leftArrow} alt="Left Arrow" className="w-6 h-6" />
+      </button>
+      <div className="mx-4">
+        {visibleElements.map((element, index) => (
+          <div key={index}>{element}</div>
         ))}
       </div>
-    </section>
+      <button onClick={next} className="text-gray-500 hover:text-gray-700 cursor-pointer">
+        <img src={rightArrow} alt="Right Arrow" className="w-6 h-6" />
+      </button>
+    </div>
   );
-}
+};
+
+Carousel.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
 export default Carousel;

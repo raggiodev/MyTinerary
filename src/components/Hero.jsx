@@ -1,4 +1,5 @@
-import Carousel from "../components/Carousel";
+import React from 'react';
+import Carousel from '../components/Carousel';
 
 function Hero() {
   return (
@@ -10,16 +11,16 @@ function Hero() {
       </section>
       <Carousel>
         <img
-          src=""
-          alt=""
+          src="https://i.im.ge/2022/08/31/OE8vA4.peritoMorenoCalafate.png"
+          alt="Argentina"
         />
         <img
-          src=""
-          alt=""
+          src="https://i.im.ge/2022/08/31/OE8ZKX.japanHonshuIsland.png"
+          alt="Japan"
         />
         <img
-          src=""
-          alt=""
+          src="https://i.im.ge/2022/08/31/OERMl1.salahCitadelCairoCity.png"
+          alt="Egypt"
         />
       </Carousel>
     </main>
