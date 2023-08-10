@@ -121,3 +121,5 @@ const cities =[
         featuredLocation: "Salah Al Din"
     }
 ]
+
+export default cities;

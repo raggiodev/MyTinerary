@@ -1,34 +1,24 @@
-function App() {
+import React from 'react';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import CallToAction from './components/CallToAction';
+import Carousel from './components/Carousel';
+import Footer from './components/Footer';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+function App() {
   return (
-    <>
-      <header>
-        <h2>My Tinerary</h2>
-        <nav>
-          <ul>
-            <li>
-              <a href="">Home</a>
-            </li>
-            <li>
-              <a href="">Cities</a>
-            </li>
-            <li>
-              <button>Login</button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <main>
-        <section>
-          <h1> </h1>
-          <p> </p>
-          <button className="callToAction"> </button>
-        </section>
-        <img />
-      </main>
-      <footer>
-      </footer>
-    </>
+    <BrowserRouter>
+      <div>
+        <Header />
+        <Switch>
+          <Route path="/" exact component={Hero} />
+          <Route path="/" component={CallToAction} />
+        </Switch>
+        <Carousel />
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

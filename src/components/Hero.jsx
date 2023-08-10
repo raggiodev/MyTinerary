@@ -4,8 +4,8 @@ function Hero() {
   return (
     <main>
       <section>
-        <h2></h2>
-        <p></p>
+        <h1>MyTinerary</h1>
+        <p>Find your perfect trip, designed by insiders who know and love their cities!</p>
         <button>View More</button>
       </section>
       <Carousel>

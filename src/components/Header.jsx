@@ -1,17 +1,17 @@
-function Header() {
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const Header = () => {
   return (
     <header>
-      <h1>MyTinerary</h1>
+      <h2>My Tinerary</h2>
       <nav>
         <ul>
           <li>
-            <a href="">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="">Citys</a>
-          </li>
-          <li>
-            <button>Login</button>
+            <Link to="/cities">Cities</Link>
           </li>
         </ul>
       </nav>
