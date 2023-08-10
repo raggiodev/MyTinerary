@@ -1,4 +1,4 @@
-import Carousel from "../layouts/Carousel";
+import Carousel from "../components/Carousel";
 
 function Hero() {
   return (
