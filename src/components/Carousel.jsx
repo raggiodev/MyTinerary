@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 
 const Carousel = () => {
   return (
-    <section>
-      <h2>Popular Mytineraries</h2>
-      <div>
-        {cities.map(cities => (
-          <Link to={`/city/${cities.country}`} key={cities.country}>
-            <div>
-              <img src={cities.photo} alt={`City: ${cities.country}`} />
-              <p>{cities.country}</p>
+    <section className="bg-white py-8">
+      <h2 className="text-2xl font-semibold mb-6">Popular Mytineraries</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {cities.map(city => (
+          <Link to={`/city/${city.country}`} key={city.country}>
+            <div className="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg">
+              <img src={city.photo} alt={`City: ${city.country}`} className="w-full h-40 object-cover mb-2 rounded-lg" />
+              <p className="text-lg font-semibold">{city.country}</p>
             </div>
           </Link>
         ))}
@@ -19,5 +19,4 @@ const Carousel = () => {
     </section>
   );
 }
-
 export default Carousel;

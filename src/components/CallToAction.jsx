@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 
 const CallToAction = () => {
   return (
-    <section>
-      <Link to="/cities">
+    <section className="bg-gray-100 py-8 text-center">
+      <Link to="/cities" className="text-blue-500 text-lg font-semibold hover:underline">Explore Cities</Link>
         {/* PONER ICON */}
-        <p>Explore Cities</p>
-      </Link>
     </section>
   );
 }

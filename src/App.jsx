@@ -9,7 +9,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="bg-gray-100 min-h-screen font-sans">
         <Header />
         <Switch>
           <Route path="/" exact component={Hero} />
@@ -21,5 +21,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;
