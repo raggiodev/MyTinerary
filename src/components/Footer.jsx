@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-600 text-white py-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <nav>
-          <ul className="flex space-x-4">
-            <li>
-              <Link to="/" className="hover:text-gray-300">WPP ICON</Link>
-            </li>
-            <li>
-              <Link to="/cities" className="hover:text-gray-300">MAIL ICON</Link>
-            </li>
-          </ul>
+    <footer className="bg-gray-800 text-white py-8 fixed bottom-0 left-0 w-full">
+      <div className="container mx-auto">
+        <nav className="flex justify-center mb-4">
+          <Link to="/" className="mr-4 hover:underline">Home</Link>
+          <Link to="/cities" className="hover:underline">Cities</Link>
         </nav>
-        <h3 className="text-lg">MyTinerary - 2023</h3>
+        <div className="flex justify-center">
+          <a href="#" className="mr-4 hover:text-gray-400"><i className="fab fa-whatsapp"></i></a>
+          <a href="#" className="mr-4 hover:text-gray-400"><i className="fab fa-twitter"></i></a>
+          <a href="#" className="hover:text-gray-400"><i className="fab fa-instagram"></i></a>
+        </div>
+        <p className="text-center mt-4">&copy; 2023 MyTinerary. All rights reserved.</p>
       </div>
     </footer>
   );
-}
+};
+
 export default Footer;

@@ -34,10 +34,11 @@ const Carousel = () => {
     <div className="flex flex-col items-center mt-8">
       <h2 className="mb-4 text-lg font-semibold">Popular Mytineraries</h2>
       <div className="flex items-center">
-        <Icon fn={previous} icon={leftArrow} />
-        <div className="overflow-hidden w-3/4">{slides[selectedIndex]}</div>
-        <Icon fn={next} icon={rightArrow} />
-      </div>
+  <Icon fn={previous} icon={leftArrow} style={{ cursor: 'pointer' }} />
+  <div className="overflow-hidden w-3/4">{slides[selectedIndex]}</div>
+  <Icon fn={next} icon={rightArrow} style={{ cursor: 'pointer' }} />
+</div>
+
     </div>
   );
 };
