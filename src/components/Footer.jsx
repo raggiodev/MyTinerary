@@ -8,10 +8,10 @@ const Footer = () => {
         <nav>
           <ul className="flex space-x-4">
             <li>
-              <Link to="/" className="hover:text-gray-300">Home</Link>
+              <Link to="/" className="hover:text-gray-300">WPP ICON</Link>
             </li>
             <li>
-              <Link to="/cities" className="hover:text-gray-300">Cities</Link>
+              <Link to="/cities" className="hover:text-gray-300">MAIL ICON</Link>
             </li>
           </ul>
         </nav>
