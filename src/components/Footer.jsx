@@ -14,7 +14,7 @@ const Footer = () => {
           <a href="https://twitter.com/JoeTheorium" className="hover:text-gray-400 fab fa-whatsapp text-xl">x logo</a>
           <a href="mailto:fernandoandresraggio@gmail.com" className="hover:text-gray-400 fab fa-whatsapp text-xl">gmail logo</a>
         </div>
-        <p className="text-center mt-4">&copy; 2023 MyTinerary. All rights reserved.</p>
+        <p className="text-center mt-4">&copy; 2023 MyTinerary - <a href="https://www.github.com/JoeTheorium">JoeTheorium</a> - All rights reserved.</p>
       </div>
     </footer>
   );
