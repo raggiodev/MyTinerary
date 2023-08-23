@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import rightArrow from '../assets/rigthArrow.svg';
 import Icon from './Icon';
 import cities from '../data/cities';

@@ -1,17 +1,13 @@
 import React from 'react';
-import { RouterProvider, createHashRouter } from 'react-router-dom';
+import {RouterProvider, createHashRouter} from 'react-router-dom';
 import Main from './components/Main';
-import Hero from './components/Hero';
-import Cities from './components/Cities';
-// import CallToAction from './components/CallToAction';
-import Details from './components/Details';
 import Error404 from './components/Error404';
 
 const router = createHashRouter([
   { 
     path: '/',
     element: <Main />,
-    children: [
+    /* children: [
       {
         path: '/',
         element: <Hero />,
@@ -24,7 +20,7 @@ const router = createHashRouter([
         path: '/cities/:id',
         element: <Details />
       }
-    ]
+    ] */
   },
   {
     path: '*',

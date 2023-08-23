@@ -9,13 +9,15 @@ const Cities = () => {
 
   useEffect(() => {
     document.title = 'Cities - MyTinerary';
-  }, []);
+  },
+  []);
 
   useEffect(() => {
     fetch(apiURL + 'cities')
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => setCitiesArray(data.response));
-  }, []);
+  },
+  []);
 
   const filterCities = CitiesArray.filter((c) =>
     c.city.toLowerCase().trim().startsWith(search.toLowerCase().trim())
