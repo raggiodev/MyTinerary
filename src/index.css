@@ -7,13 +7,3 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-body{
-  min-height: 100vh;
-  padding-left: 10vw;
-  padding-right: 10vw;
-}
-
-footer{
-  width: 100%;
-}
