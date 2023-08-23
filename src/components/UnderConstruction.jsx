@@ -10,7 +10,7 @@ const UnderConstruction = () => {
         <p>Check back later for updates!</p>
         <NavLink to="/" style={{textDecoration: 'none', color: '#333'}}>
           <button style={{marginTop: '1rem', padding: '0.5rem 1rem', borderRadius: '4px', border: '1px solid #333', backgroundColor: 'transparent', cursor: 'pointer'}}>
-            Go Back Home
+            Back to Home
           </button>
         </NavLink>
       </section>
