@@ -1,20 +1,22 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import UnderConstruction from "../components/UnderConstruction";
 
 const Details = () => {
   const params = useParams();
-  console.log(params.id);
+  const [pageTitle, setPageTitle] = useState("City Details");
 
   useEffect(() => {
-    document.title = params.id + " from 'MyTinerary'";
+    if (params.id) {
+      setPageTitle(`${params.id} from 'MyTinerary'`);
+    }
   },
   [params.id]);
 
   return (
     <UnderConstruction>
-      <section style={{marginTop: "2rem", textAlign: "center"}}>
-        <h2>City Details</h2>
+      <section className="mt-8 text-center">
+        <h2 className="text-xl font-semibold">{pageTitle}</h2>
         <p>Details about {params.id} will be available soon or never.</p>
       </section>
     </UnderConstruction>
