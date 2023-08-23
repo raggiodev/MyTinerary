@@ -1,24 +1,39 @@
 import React from 'react';
-import Header from './components/Header';
+import {RouterProvider, createHashRouter} from 'react-router-dom';
+import Main from './components/Main';
 import Hero from './components/Hero';
 import CallToAction from './components/CallToAction';
-// import Carousel from './components/Carousel';
-import Footer from './components/Footer';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Details from './pages/Details';
+import Error404 from './pages/Error404';
+
+const router = createHashRouter([
+  { 
+    path: '/',
+    element: <Main />,
+    children: [
+      {
+        path: '/',
+        element: <Hero />,
+      },
+      { 
+        path: '/cities',
+        element: <CallToAction />
+      },
+      {
+        path: '/cities/:id',
+        element: <Details />
+      }
+    ]
+  },
+  {
+    path: '*',
+    element: <Error404 />
+  }
+]);
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="bg-gray-100 min-h-screen font-sans">
-        <Header />
-          <Hero />
-        <Routes>
-          <Route path="/cities" element={<CallToAction />} />
-        </Routes>
-        {/* <Carousel /> */}
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   );
 }
 
