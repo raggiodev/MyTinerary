@@ -1,32 +1,41 @@
-import React, {useState} from 'react';
-import rightArrow from '../assets/rigthArrow.svg';
-import Icon from './Icon';
-import cities from '../data/cities';
+import React, {useState} from "react";
+import rightArrow from "../assets/rightArrow.svg";
+import leftArrow from "../assets/leftArrow.svg";
+import cities from "../data/cities";
 
 const Carousel = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const previous = () => {
-    setSelectedIndex(prevIndex => (prevIndex > 0 ? prevIndex - 1 : cities.length - 1));
+    setSelectedIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : cities.length - 1
+    );
   };
 
   const next = () => {
-    setSelectedIndex(prevIndex => (prevIndex < cities.length - 1 ? prevIndex + 1 : 0));
+    setSelectedIndex((prevIndex) =>
+      prevIndex < cities.length - 1 ? prevIndex + 1 : 0
+    );
   };
 
   return (
     <div className="flex flex-col items-center mt-8">
-      <h2 className="mb-4 text-lg font-semibold text-left w-full pl-12">Popular Mytineraries</h2>
+      <h2 className="mb-4 text-lg font-semibold text-center w-[1080px] pl-4">
+        Popular Mytineraries
+      </h2>
       <div className="relative w-full max-w-4xl">
         <div className="flex items-center justify-center">
-          <Icon fn={previous} icon={rightArrow} style={{ cursor: 'pointer' }} />
-          <div className="overflow-hidden h-96 w-3/4 relative">
+          <button
+            onClick={previous}
+            className="cursor-pointer focus:outline-none p-2 transition-transform transform hover:scale-110"
+          >
+            <img src={leftArrow} alt="Previous" />
+          </button>
+          <div className="overflow-hidden h-96 w-full relative">
             {cities.map((city, index) => (
               <div
                 key={city.city}
-                className={`h-full w-full absolute top-0 transition-transform duration-300 ease-in-out ${
-                  index === selectedIndex ? '' : 'transform translate-x-full'
-                }`}
+                className={`h-full w-full absolute top-0 transition-transform duration-300 ease-in-out ${index === selectedIndex ? "" : "transform translate-x-full"}`}
               >
                 <img
                   src={city.photo}
@@ -39,7 +48,12 @@ const Carousel = () => {
               </div>
             ))}
           </div>
-          <Icon fn={next} icon={rightArrow} style={{ cursor: 'pointer' }} />
+          <button
+            onClick={next}
+            className="cursor-pointer focus:outline-none p-2 transition-transform transform hover:scale-110"
+          >
+            <img src={rightArrow} alt="Next" />
+          </button>
         </div>
       </div>
     </div>
