@@ -1,10 +1,11 @@
 import React from 'react';
-import {RouterProvider, createHashRouter} from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 import Main from './components/Main';
 import Hero from './components/Hero';
-import CallToAction from './components/CallToAction';
-import Details from './pages/Details';
-import Error404 from './pages/Error404';
+import Cities from './components/Cities';
+// import CallToAction from './components/CallToAction';
+import Details from './components/Details';
+import Error404 from './components/Error404';
 
 const router = createHashRouter([
   { 
@@ -17,7 +18,7 @@ const router = createHashRouter([
       },
       { 
         path: '/cities',
-        element: <CallToAction />
+        element: <Cities />
       },
       {
         path: '/cities/:id',
@@ -33,7 +34,9 @@ const router = createHashRouter([
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <div className="bg-gray-100 min-h-screen font-sans">
+      <RouterProvider router={router} />
+    </div>
   );
 }
 
