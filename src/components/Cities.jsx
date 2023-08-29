@@ -1,26 +1,23 @@
-import {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
-import Card from '../components/Card';
-import {apiURL} from '../utils/apiURL';
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+import Card from "../components/Card";
+import {fetchCities} from "../redux/city/cityActions";
 
 const Cities = () => {
-  let [CitiesArray, setCitiesArray] = useState([]);
-  let [search, setSearch] = useState('');
+  const dispatch = useDispatch();
+  const cities = useSelector((state) => state.city.cities);
+
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    document.title = 'Cities - MyTinerary';
+    document.title = "Cities - MyTinerary";
+    dispatch(fetchCities());
   },
-  []);
+  [dispatch]);
 
-  useEffect(() => {
-    fetch(apiURL + 'cities')
-      .then((res) => res.json())
-      .then((data) => setCitiesArray(data.response));
-  },
-  []);
-
-  const filterCities = CitiesArray.filter((c) =>
-    c.city.toLowerCase().trim().startsWith(search.toLowerCase().trim())
+  const filterCities = cities.filter((city) =>
+    city.city.toLowerCase().trim().startsWith(search.toLowerCase().trim())
   );
 
   return (
@@ -29,14 +26,11 @@ const Cities = () => {
         <input
           type="text"
           name="search"
-          placeholder=" "
+          placeholder="Search By City"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           className="border rounded p-2 w-full"
         />
-        <label htmlFor="search" className="block mt-2 text-gray-700">
-          Search By City
-        </label>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filterCities.length === 0 ? (
@@ -48,7 +42,7 @@ const Cities = () => {
           </section>
         ) : (
           filterCities.map((data, indexMap) => (
-            <Link to={'/cities/' + data.city} key={indexMap}>
+            <Link to={"/cities/" + data.city} key={indexMap}>
               <Card data={data}></Card>
             </Link>
           ))
