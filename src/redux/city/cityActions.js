@@ -1,24 +1,16 @@
-import { FETCH_CITIES_SUCCESS, FETCH_CITIES_FAILURE } from "./cityTypes";
-import { apiURL } from "../../utils/apiURL";
 import axios from "axios";
 
-export const fetchCities = () => (dispatch) => {
-  fetch(apiURL + "cities")
-    .then((res) => res.json())
-    .then((data) => {
-      dispatch({
-        type: FETCH_CITIES_SUCCESS,
-        payload: data.response,
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: FETCH_CITIES_FAILURE,
-        payload: error.message,
-      });
-    });
+// Acción para crear un nuevo itinerario
+export const createItinerary = (cityId, newItineraryData) => async (dispatch) => {
+  try {
+    const response = await axios.post(`/api/cities/${cityId}/itineraries`, newItineraryData);
+    dispatch({ type: "CREATE_ITINERARY_SUCCESS", payload: response.data });
+  } catch (error) {
+    dispatch({ type: "CREATE_ITINERARY_FAILURE", payload: error.message });
+  }
 };
 
+// Acción para eliminar un itinerario
 export const deleteItinerary = (itineraryId) => async (dispatch) => {
   try {
     await axios.delete(`/api/itineraries/${itineraryId}`);

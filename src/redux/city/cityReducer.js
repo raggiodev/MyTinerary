@@ -1,26 +1,30 @@
-import {FETCH_CITIES_SUCCESS, FETCH_CITIES_FAILURE} from "./cityTypes";
-
 const initialState = {
-  cities: [],
-  loading: true,
+  itineraries: [],
   error: null,
 };
 
 const cityReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_CITIES_SUCCESS:
+    case "FETCH_ITINERARIES_SUCCESS":
+      return { ...state, itineraries: action.payload, error: null };
+    case "FETCH_ITINERARIES_FAILURE":
+      return { ...state, itineraries: [], error: action.payload };
+    case "DELETE_ITINERARY_SUCCESS": {
+      const updatedItineraries = state.itineraries.filter(
+        (itinerary) => itinerary._id !== action.payload
+      );
+      return { ...state, itineraries: updatedItineraries, error: null };
+    }
+    case "DELETE_ITINERARY_FAILURE":
+      return { ...state, error: action.payload };
+    case "CREATE_ITINERARY_SUCCESS":
       return {
         ...state,
-        cities: action.payload,
-        loading: false,
+        itineraries: [...state.itineraries, action.payload],
         error: null,
       };
-    case FETCH_CITIES_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
+    case "CREATE_ITINERARY_FAILURE":
+      return { ...state, error: action.payload };
     default:
       return state;
   }
