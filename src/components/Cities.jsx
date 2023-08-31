@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import Card from "../components/Card";
-import {fetchCities} from "../redux/city/cityActions";
+import {fetchItinerariesByCity} from "../redux/city/cityActions";
 
 const Cities = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const Cities = () => {
 
   useEffect(() => {
     document.title = "Cities - MyTinerary";
-    dispatch(fetchCities());
+    dispatch(fetchItinerariesByCity());
   },
   [dispatch]);
 

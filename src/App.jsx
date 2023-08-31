@@ -1,5 +1,7 @@
 import React from 'react';
 import {RouterProvider, createHashRouter} from 'react-router-dom';
+import {Provider} from 'react-redux';
+import store from './redux/store';
 import Main from './components/Main';
 import City from './components/City';
 import Error404 from './components/Error404';
@@ -21,9 +23,11 @@ const router = createHashRouter([
 
 function App() {
   return (
-    <div className="bg-gray-100 min-h-screen font-sans">
-      <RouterProvider router={router} />
-    </div>
+    <Provider store={store}>
+      <div className="bg-gray-100 min-h-screen font-sans">
+        <RouterProvider router={router} />
+      </div>
+    </Provider>
   );
 }
 
