@@ -33,19 +33,19 @@ const City = () => {
     setNewItinerary({
       title: "",
       description: "",
-      // Añadir más
+      // Añadir más campos del itinerario
     });
   };
 
   return (
     <div>
       <h2>City Details</h2>
-      {/*Detalles de cada ciudad*/}
+      {/* Detalles de cada ciudad */}
       <h3>Itineraries</h3>
       <ul>
         {itineraries.map((itinerary) => (
           <li key={itinerary._id}>
-            <h4>{itinerary.name}</h4>
+            <h4>{itinerary.title}</h4>
             <p>Price: {itinerary.price}</p>
             <p>Duration: {itinerary.duration} hours</p>
             <p>Likes: {itinerary.likes}</p>
@@ -84,7 +84,7 @@ const City = () => {
       {/* Creación de nuevo itinerario */}
       {showCreateForm ? (
         <div>
-          <h3>Create New Itinerary</h3>
+          <h3>Create New MyTinerary</h3>
           <input
             type="text"
             name="title"
