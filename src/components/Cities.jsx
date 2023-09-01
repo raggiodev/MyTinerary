@@ -1,22 +1,21 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link } from "react-router-dom";
 import Card from "../components/Card";
 import {fetchItinerariesByCity} from "../redux/city/cityActions";
 
 const Cities = () => {
   const dispatch = useDispatch();
-  const cities = useSelector((state) => state.city.cities);
+  const itineraries = useSelector((state) => state.city.itineraries);
 
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     document.title = "Cities - MyTinerary";
     dispatch(fetchItinerariesByCity());
-  },
-  [dispatch]);
+  }, [dispatch]);
 
-  const filterCities = cities.filter((city) =>
+  const filterCities = itineraries.filter((city) =>
     city.city.toLowerCase().trim().startsWith(search.toLowerCase().trim())
   );
 
@@ -42,7 +41,7 @@ const Cities = () => {
           </section>
         ) : (
           filterCities.map((data, indexMap) => (
-            <Link to={"/cities/" + data.city} key={indexMap}>
+            <Link to={`/city/${data.city}`} key={indexMap}>
               <Card data={data}></Card>
             </Link>
           ))
