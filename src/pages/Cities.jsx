@@ -6,8 +6,8 @@ import {createAllCities} from "../redux/actions/cityActions";
 
 const Cities = () => {
   const dispatch = useDispatch();
-  const cities = useSelector((state) => state.createAllCitiesReducer.cities);
-  
+  const cities = useSelector((state) => state.createAllCitiesReducer.citiesFiltered);
+
   const [search, setSearch] = useState("");
 
   useEffect(() => {

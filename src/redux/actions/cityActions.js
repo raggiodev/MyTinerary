@@ -1,5 +1,5 @@
 import axios from "axios";
-import {createAsyncThunk} from "@reduxjs/toolkit";
+import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import {apiURL} from "../../utils/apiURL";
 
 // Filtros con creteActions. Actions no va lógica, acá solo van y pasan actions para pasarle al reducer, la lógica va en el reducer.
@@ -18,6 +18,12 @@ export const createAllCities = createAsyncThunk("city/createAllCities", async ()
     return res.data.response;
   }
 );
+
+  export const filterCities = createAction('filterCities', (search) => { // Acción síncrona
+    return {
+      payload: search
+    }
+});
 
 // Acción para crear itinerarios por ciudad
 export const createItinerariesByCity = createAsyncThunk("city/createItinerariesByCity", async (city) => {

@@ -1,8 +1,9 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {createCity, createAllCities, createItinerariesByCity} from "../actions/cityActions.js";
+import {createCity, createAllCities, filterCities, createItinerariesByCity} from "../actions/cityActions.js";
 
 const initialState = {
   cities: [],
+  citiesFiltered: [],
   city: {},
   itineraries: [],
 }
@@ -18,9 +19,17 @@ export const createCityReducer = createReducer(initialState, (builder)=> {
 export const createAllCitiesReducer = createReducer(initialState, (builder)=> {
   builder
       .addCase(createAllCities.fulfilled, (store,action)=>{
-          const newCities = { ...store, cities: action.payload}
+          const newCities = { ...store, cities: action.payload, citiesFiltered: action.payload}
           return newCities
       })
+      .addCase(filterCities, (store,action) => {
+        const searchCities = action.payload.toLowerCase().trim()
+        const newFilteredCities = store.cities.filter(e => e.city.toLowerCase().trim().startsWith(searchCities))
+        return {
+          ...store,
+          filteredCities: newFilteredCities
+        }
+      });
 })
 
 export const createItinerariesByCityReducer = createReducer(initialState, (builder)=> {
