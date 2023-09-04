@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
-import {fetchItinerariesByCity, createItinerary} from "../redux/city/cityActions";
+import {fetchItinerariesByCity, createItinerary} from "../redux/actions/cityActions";
 
 const City = () => {
   const { cityId } = useParams();

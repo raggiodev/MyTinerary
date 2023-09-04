@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import Card from "../components/Card";
-import {fetchItinerariesByCity} from "../redux/city/cityActions";
+import {fetchItinerariesByCity} from "../redux/actions/cityActions";
 
 const Cities = () => {
   const dispatch = useDispatch();
