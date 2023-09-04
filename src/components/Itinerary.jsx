@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { FaHeart, FaRegHeart, FaMoneyBillWave } from "react-icons/fa";
-import { BsChevronDown } from "react-icons/bs";
+import React, {useState} from "react";
+import {FaHeart, FaRegHeart, FaMoneyBillWave} from "react-icons/fa";
+import {BsChevronDown} from "react-icons/bs";
 import underConstruction from "../assets/underConstruction.jpg";
 
 const Itinerary = ({ data }) => {
@@ -27,10 +27,7 @@ const Itinerary = ({ data }) => {
     const dollarIcons = [];
     for (let i = 0; i < data.price; i++) {
       dollarIcons.push(
-        <FaMoneyBillWave
-          key={i}
-          className="w-4 h-4 inline-block"
-        />
+        <FaMoneyBillWave key={i} className="w-4 h-4 inline-block" />
       );
     }
     return dollarIcons;
@@ -46,7 +43,7 @@ const Itinerary = ({ data }) => {
           <div
             className={`${
               isLiked ? "text-red-500" : ""
-            } cursor-pointer`}
+            } cursor-pointer bg-gray-200 rounded-full p-2`}
             onClick={toggleLike}
           >
             {likeIcon} {likes}
@@ -54,7 +51,7 @@ const Itinerary = ({ data }) => {
         </div>
       </div>
       <h1 className="text-xl font-semibold p-2">{data.name}</h1>
-      <div className="p-2 flex justify-center">
+      <div className="p-2 flex flex-wrap justify-center">
         {data.hashtags.map((tag, index) => (
           <span
             key={index}
@@ -64,22 +61,20 @@ const Itinerary = ({ data }) => {
           </span>
         ))}
       </div>
-      <div className="p-2 flex justify-center">
-        <div className="flex items-center">
-          <img
-            src={data.authorPhoto}
-            alt={data.authorPhoto}
-            className="w-12 h-12 rounded-full mr-2"
-          />
-          <h3>{data.author}</h3>
-        </div>
-        <h5 className="ml-2">
-          <span className="font-semibold">Price:</span>{" "}
-          {renderDollarIcons()}
+      <div className="p-2 flex items-center justify-center">
+        <img
+          src={data.authorPhoto}
+          alt={data.authorPhoto}
+          className="w-12 h-12 rounded-full mr-2"
+        />
+        <h3 className="mt-1">{data.author}</h3>
+      </div>
+      <div className="p-2 flex items-center justify-center">
+        <h5 className="ml-4">
+          <span className="font-semibold">Price:</span> {renderDollarIcons()}
         </h5>
-        <h5 className="ml-2">
-          <span className="font-semibold">Duration:</span>{" "}
-          {data.duration} min
+        <h5 className="ml-4">
+          <span className="font-semibold">Duration:</span> {data.duration} min
         </h5>
       </div>
       <div className="p-2">
@@ -91,12 +86,14 @@ const Itinerary = ({ data }) => {
           <h2 className="mb-2">
             Section <span>Under</span> Construction
           </h2>
-          <h5>Content will be available soon</h5>
-          <img
-            style={{ maxWidth: "90%", maxHeight: "10rem" }}
-            src={underConstruction}
-            alt="workers construction house"
-          />
+          <h5 className="mb-2">Content will be available soon</h5>
+          <div className="flex items-center justify-center">
+            <img
+              style={{ maxWidth: "90%", maxHeight: "10rem" }}
+              src={underConstruction}
+              alt="workers construction house"
+            />
+          </div>
         </div>
       </div>
       <div
