@@ -28,15 +28,15 @@ const Itinerary = ({ data }) => {
   };
 
   return (
-    <div className="itinerary border rounded-md overflow-hidden">
+    <div className="border rounded-md overflow-hidden">
       <div
         style={{ backgroundImage: `url(${data.photo})` }}
         className="h-40 bg-cover bg-center relative"
       >
-        <div className="like absolute top-2 right-2">
+        <div className="absolute top-2 right-2">
           <div
-            className={`heart cursor-pointer ${
-              isLiked ? "heart-active" : ""
+            className={`${
+              isLiked ? "" : ""
             }`}
             onClick={toggleLike}
           >
@@ -46,13 +46,13 @@ const Itinerary = ({ data }) => {
         </div>
       </div>
       <h1 className="text-xl font-semibold p-2">{data.name}</h1>
-      <div className="tags p-2">
+      <div className="p-2">
         {data.tematicHashtags.map((tag, index) => (
           <p key={index}>{tag}</p>
         ))}
       </div>
-      <div className="collapse p-2">
-        <div className="author">
+      <div className="p-2">
+        <div>
           <img src={data.authorPhoto} alt={data.authorName} />
           <h3>{data.authorName}</h3>
         </div>
