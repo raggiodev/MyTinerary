@@ -4,6 +4,10 @@ import {BsChevronDown} from "react-icons/bs";
 import underConstruction from "../assets/underConstruction.jpg";
 
 const Itinerary = ({ data }) => {
+  if (!data) {
+    return <h1>Loading...</h1>
+  }
+
   const [expanded, setExpanded] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(data.likes);
@@ -19,12 +23,12 @@ const Itinerary = ({ data }) => {
 
   const likeIcon = isLiked ? <FaHeart /> : <FaRegHeart />;
 
-  const renderDollarIcons = () => {
-    const dollarIcons = [];
+  const renderDollarIcon = () => {
+    const dollarIcon = [];
     for (let i = 0; i < data.price; i++) {
-      dollarIcons.push(<FaMoneyBillWave key={i} className="w-4 h-4 inline-block" />);
+      dollarIcon.push(<FaMoneyBillWave key={i} className="w-4 h-4 inline-block" />);
     }
-    return dollarIcons;
+    return dollarIcon;
   };
 
   return (
@@ -47,7 +51,7 @@ const Itinerary = ({ data }) => {
       </div>
       <h1 className="text-xl font-semibold p-2">{data.name}</h1>
       <div className="p-2">
-        {data.tematicHashtags.map((tag, index) => (
+        {data.hashtags.map((tag, index) => (
           <p key={index}>{tag}</p>
         ))}
       </div>
@@ -58,7 +62,7 @@ const Itinerary = ({ data }) => {
         </div>
         <h5>
           <span>Price: </span>
-          {renderDollarIcons()}
+          {renderDollarIcon()}
         </h5>
         <h5>
           <span>Duration: </span>

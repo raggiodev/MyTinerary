@@ -17,7 +17,7 @@ const router = createHashRouter([
     element: <Cities />,
   },
   {
-    path: 'city/:id',
+    path: '/city/:id',
     element: <Details />,
   },
   {

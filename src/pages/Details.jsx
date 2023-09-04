@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import {createCity, createItinerariesByCity} from "../redux/actions/cityActions";
+import {createCity, fetchItinerariesByCity} from "../redux/actions/cityActions";
 import Itinerary from "../components/Itinerary";
 import NoItinerariesFound from "../components/NoItinerariesFound";
 
@@ -16,8 +16,8 @@ const Details = () => {
 
   useEffect(() => {
     dispatch(createCity(params.id));
-    dispatch(createItinerariesByCity(params.id));
-  }, [params.id, dispatch]);
+    dispatch(fetchItinerariesByCity(params.id));
+  }, []);
 
   useEffect(() => {
     document.title = `${city.city} - MyTinerary`;
@@ -61,9 +61,9 @@ const Details = () => {
           <NoItinerariesFound />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {itineraries.map((itinerary, index) => (
-              <Itinerary data={itinerary} key={index} />
-            ))}
+            {itineraries.map((itinerary, index) => {
+              return <Itinerary data={itinerary} key={index} />
+            })}
           </div>
         )}
       </div>
