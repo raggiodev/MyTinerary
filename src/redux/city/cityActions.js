@@ -1,5 +1,5 @@
 import axios from "axios";
-import apiURL from "../../utils/apiURL";
+import {apiURL} from "../../utils/apiURL";
 
 // Acción para crear una sola ciudad por nombre
 export const createCity = (name) => async (dispatch) => {
