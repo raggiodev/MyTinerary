@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {FaHeart, FaRegHeart, FaMoneyBillWave} from "react-icons/fa";
-import {BsChevronDown} from "react-icons/bs";
+import React, { useState } from "react";
+import { FaHeart, FaRegHeart, FaMoneyBillWave } from "react-icons/fa";
+import { BsChevronDown } from "react-icons/bs";
 import underConstruction from "../assets/underConstruction.jpg";
 
 const Itinerary = ({ data }) => {
@@ -27,21 +27,26 @@ const Itinerary = ({ data }) => {
     const dollarIcons = [];
     for (let i = 0; i < data.price; i++) {
       dollarIcons.push(
-        <FaMoneyBillWave key={i} className="w-4 h-4 inline-block" />
+        <FaMoneyBillWave
+          key={i}
+          className="w-4 h-4 inline-block"
+        />
       );
     }
     return dollarIcons;
   };
 
   return (
-    <div className="border rounded-md overflow-hidden">
+    <div className="border rounded-md overflow-hidden text-center">
       <div
         style={{ backgroundImage: `url(${data.photo})` }}
         className="h-40 bg-cover bg-center relative"
       >
         <div className="absolute top-2 right-2">
           <div
-            className={`${isLiked ? "text-red-500" : ""} cursor-pointer`}
+            className={`${
+              isLiked ? "text-red-500" : ""
+            } cursor-pointer`}
             onClick={toggleLike}
           >
             {likeIcon} {likes}
@@ -49,25 +54,32 @@ const Itinerary = ({ data }) => {
         </div>
       </div>
       <h1 className="text-xl font-semibold p-2">{data.name}</h1>
-      <div className="p-2">
+      <div className="p-2 flex justify-center">
         {data.hashtags.map((tag, index) => (
-          <p key={index}>{tag}</p>
+          <span
+            key={index}
+            className="bg-gray-200 rounded-full px-2 py-1 text-sm m-1"
+          >
+            {tag}
+          </span>
         ))}
       </div>
-      <div className="p-2">
+      <div className="p-2 flex justify-center">
         <div className="flex items-center">
           <img
             src={data.authorPhoto}
-            alt={data.authorName}
+            alt={data.authorPhoto}
             className="w-12 h-12 rounded-full mr-2"
           />
-          <h3>{data.authorName}</h3>
+          <h3>{data.author}</h3>
         </div>
-        <h5>
-          <span className="font-semibold">Price:</span> {renderDollarIcons()}
+        <h5 className="ml-2">
+          <span className="font-semibold">Price:</span>{" "}
+          {renderDollarIcons()}
         </h5>
-        <h5>
-          <span className="font-semibold">Duration:</span> {data.duration} min
+        <h5 className="ml-2">
+          <span className="font-semibold">Duration:</span>{" "}
+          {data.duration} min
         </h5>
       </div>
       <div className="p-2">
