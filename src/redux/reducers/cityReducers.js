@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {createCity, createAllCities, filterCities, createItinerariesByCity} from "../actions/cityActions.js";
+import {createCity, createAllCities, filterCities, fetchItinerariesByCity} from "../actions/cityActions.js";
 
 const initialState = {
   cities: [],
@@ -34,7 +34,7 @@ export const createAllCitiesReducer = createReducer(initialState, (builder)=> {
 
 export const createItinerariesByCityReducer = createReducer(initialState, (builder)=> {
   builder
-      .addCase(createItinerariesByCity.fulfilled, (store,action)=>{
+      .addCase(fetchItinerariesByCity.fulfilled, (store,action)=>{
           const newItineraries = { ...store, itineraries: action.payload}
           return newItineraries
       })

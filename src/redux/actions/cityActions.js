@@ -47,7 +47,7 @@ export const deleteItinerary = createAsyncThunk("city/deleteItinerary", async (i
 
 // Acción para fetchear itinerarios por ciudad
 export const fetchItinerariesByCity = createAsyncThunk("city/fetchItinerariesByCity", async (cityId) => {
-    const response = await axios.get(`/api/cities/${cityId}/itineraries`);
+    const response = await axios.get(`http://localhost:5000/api/itineraries/${cityId}`);
     return response.data.response;
   }
 );
