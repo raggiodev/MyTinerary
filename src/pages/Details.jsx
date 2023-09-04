@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import {createCity, createItinerariesByCity} from "../redux/city/cityActions";
+import {createCity, createItinerariesByCity} from "../redux/actions/cityActions";
 import Itinerary from "../components/Itinerary";
 import NoItinerariesFound from "../components/NoItinerariesFound";
 

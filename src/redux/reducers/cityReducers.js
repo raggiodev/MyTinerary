@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {createCity, createAllCities, createItinerariesByCity} from "./cityActions.js";
+import {createCity, createAllCities, createItinerariesByCity} from "../actions/cityActions.js";
 
 const initialState = {
   cities: [],
