@@ -18,7 +18,6 @@ export const createAllCities = createAsyncThunk("city/createAllCities", async ()
     return res.data.response;
   }
 );
-
   export const filterCities = createAction('filterCities', (search) => { // Acción síncrona
     return {
       payload: search

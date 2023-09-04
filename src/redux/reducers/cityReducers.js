@@ -27,7 +27,7 @@ export const createAllCitiesReducer = createReducer(initialState, (builder)=> {
         const newFilteredCities = store.cities.filter(e => e.city.toLowerCase().trim().startsWith(searchCities))
         return {
           ...store,
-          filteredCities: newFilteredCities
+          citiesFiltered: newFilteredCities
         }
       });
 })

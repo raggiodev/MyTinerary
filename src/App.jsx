@@ -3,7 +3,8 @@ import {RouterProvider, createHashRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import store from './redux/store';
 import Main from './components/Main';
-import City from './components/City';
+import Cities from './pages/Cities';
+import Details from './pages/Details';
 import Error404 from './pages/Error404';
 
 const router = createHashRouter([
@@ -12,8 +13,12 @@ const router = createHashRouter([
     element: <Main />,
   },
   {
-    path: 'city/:cityId',
-    element: <City />,
+    path: '/cities',
+    element: <Cities />,
+  },
+  {
+    path: 'city/:id',
+    element: <Details />,
   },
   {
     path: '*',
