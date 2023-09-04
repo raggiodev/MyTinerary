@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
 import Card from "../components/Card";
 import {createAllCities, filterCities} from "../redux/actions/cityActions";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const Cities = () => {
@@ -25,6 +26,7 @@ const Cities = () => {
 
   return (
     <>
+      <Header />
       <main className="px-4 py-8 text-center">
         <div className="mb-4">
           <input
