@@ -2,6 +2,8 @@ import axios from "axios";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {apiURL} from "../../utils/apiURL";
 
+// Filtros con creteActions. Actions no va lógica, acá solo van y pasan actions para pasarle al reducer, la lógica va en el reducer.
+
 // Acción para crear una sola ciudad por nombre
 export const createCity = createAsyncThunk("city/createCity", async (name) => {
   const res = await axios.get(apiURL + "cities/" + name);
@@ -9,11 +11,11 @@ export const createCity = createAsyncThunk("city/createCity", async (name) => {
 });
 
 // Acción para crear todas las ciudades que coinciden con la búsqueda
-export const createAllCities = createAsyncThunk("city/createAllCities", async (inputSearch) => {
+export const createAllCities = createAsyncThunk("city/createAllCities", async () => {
     const res = await axios.get(apiURL + "cities");
-    const search = inputSearch.toLowerCase().trim();
-    const filteredCities = res.data.response.filter((c) => c.city.toLowerCase().trim().startsWith(search));
-    return filteredCities;
+    // const search = inputSearch.toLowerCase().trim();
+    // const filteredCities = res.data.response.filter((c) => c.city.toLowerCase().trim().startsWith(search));
+    return res.data.response;
   }
 );
 
