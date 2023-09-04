@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import Card from "../components/Card";
 import {fetchItinerariesByCity} from "../redux/city/cityActions";
 
 const Cities = () => {
   const dispatch = useDispatch();
-  const itineraries = useSelector((state) => state.city.itineraries);
+  const itineraries = useSelector((state) => state.createItinerariesByCityReducer.itineraries);
 
   const [search, setSearch] = useState("");
 

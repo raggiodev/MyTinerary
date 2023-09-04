@@ -1,11 +1,11 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {createAllCitiesReducer, createCityReducer, createItinerariesByCityReducer} from './city/cityReducer.js';
+import {configureStore} from "@reduxjs/toolkit";
+import {createCityReducer, createAllCitiesReducer, createItinerariesByCityReducer} from "./city/cityReducers.js";
 
 const store = configureStore({
     reducer: {
-        createAllCitiesReducer,
-        createCityReducer,
-        createItinerariesByCityReducer,
+        createCityReducer: createCityReducer,
+        createAllCitiesReducer: createAllCitiesReducer,
+        createItinerariesByCityReducer: createItinerariesByCityReducer,
     }
 })
 

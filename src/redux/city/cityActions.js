@@ -1,69 +1,46 @@
 import axios from "axios";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 import {apiURL} from "../../utils/apiURL";
 
 // Acción para crear una sola ciudad por nombre
-export const createCity = (name) => async (dispatch) => {
-  try {
-    const res = await axios.get(apiURL + "cities/" + name);
-    dispatch({ type: "READ_ONE_CITY_SUCCESS", payload: res.data.response });
-  } catch (error) {
-    dispatch({ type: "READ_ONE_CITY_FAILURE", payload: error.message });
-  }
-};
-
-// Acción para crear itinerarios por ciudad
-export const createItinerariesByCity = (city) => async (dispatch) => {
-  try {
-    const res = await axios.get(apiURL + "itineraries/" + city);
-    dispatch({ type: "READ_ITINERARIES_BY_CITY_SUCCESS", payload: res.data.response });
-  } catch (error) {
-    dispatch({ type: "READ_ITINERARIES_BY_CITY_FAILURE", payload: error.message });
-  }
-};
+export const createCity = createAsyncThunk("city/createCity", async (name) => {
+  const res = await axios.get(apiURL + "cities/" + name);
+  return res.data.response;
+});
 
 // Acción para crear todas las ciudades que coinciden con la búsqueda
-export const createAllCities = (inputSearch) => async (dispatch) => {
-  try {
+export const createAllCities = createAsyncThunk("city/createAllCities", async (inputSearch) => {
     const res = await axios.get(apiURL + "cities");
     const search = inputSearch.toLowerCase().trim();
-    const filteredCities = res.data.response.filter((c) =>
-      c.city.toLowerCase().trim().startsWith(search)
-    );
-    dispatch({ type: "READ_ALL_CITIES_SUCCESS", payload: filteredCities });
-  } catch (error) {
-    dispatch({ type: "READ_ALL_CITIES_FAILURE", payload: error.message });
+    const filteredCities = res.data.response.filter((c) => c.city.toLowerCase().trim().startsWith(search));
+    return filteredCities;
   }
-};
+);
+
+// Acción para crear itinerarios por ciudad
+export const createItinerariesByCity = createAsyncThunk("city/createItinerariesByCity", async (city) => {
+    const res = await axios.get(apiURL + "itineraries/" + city);
+    return res.data.response;
+  }
+);
 
 // Acción para crear un nuevo itinerario
-export const createItinerary = (cityId, newItineraryData) => async (dispatch) => {
-  try {
+export const createItinerary = createAsyncThunk("city/createItinerary", async (cityId, newItineraryData) => {
     const response = await axios.post(`/api/cities/${cityId}/itineraries`, newItineraryData);
-    dispatch({ type: "CREATE_ITINERARY_SUCCESS", payload: response.data });
+    return response.data;
   }
-  catch (error) {
-    dispatch({ type: "CREATE_ITINERARY_FAILURE", payload: error.message });
-  }
-};
+);
 
 // Acción para eliminar un itinerario
-export const deleteItinerary = (itineraryId) => async (dispatch) => {
-  try {
+export const deleteItinerary = createAsyncThunk("city/deleteItinerary", async (itineraryId) => {
     await axios.delete(`/api/itineraries/${itineraryId}`);
-    dispatch({ type: "DELETE_ITINERARY_SUCCESS", payload: itineraryId });
+    return itineraryId;
   }
-  catch (error) {
-    dispatch({ type: "DELETE_ITINERARY_FAILURE", payload: error.message });
-  }
-};
+);
 
 // Acción para fetchear itinerarios por ciudad
-export const fetchItinerariesByCity = (cityId) => async (dispatch) => {
-  try {
+export const fetchItinerariesByCity = createAsyncThunk("city/fetchItinerariesByCity", async (cityId) => {
     const response = await axios.get(`/api/cities/${cityId}/itineraries`);
-    dispatch({ type: "FETCH_ITINERARIES_BY_CITY", payload: response.data.response });
+    return response.data.response;
   }
-  catch (error) {
-    console.error(error);
-  }
-};
+);

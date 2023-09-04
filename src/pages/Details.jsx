@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { createCity, createItinerariesByCity } from "../redux/city/cityActions";
+import React, {useEffect, useState} from "react";
+import {useParams, useNavigate} from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
+import {createCity, createItinerariesByCity} from "../redux/city/cityActions";
 import Itinerary from "../components/Itinerary";
 import NoItinerariesFound from "../components/NoItinerariesFound";
 
@@ -9,8 +9,8 @@ const Details = () => {
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const city = useSelector((store) => store.readOneCityReducer.city);
-  const itineraries = useSelector((store) => store.readItinerariesByCityReducer.itineraries);
+  const city = useSelector((store) => store.createCityReducer.city);
+  const itineraries = useSelector((store) => store.createItinerariesByCityReducer.itineraries);
 
   useEffect(() => {
     dispatch(createCity(params.id));
@@ -21,16 +21,20 @@ const Details = () => {
     document.title = params.id + " - MyTinerary";
   }, [params.id]);
 
+  if (!city || !city.city || !itineraries) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="details">
+    <div>
       <div style={{ backgroundImage: `url(${city.photo})` }}>
-        <h1 className="acent">{city.city}</h1>
+        <h1>{city.city}</h1>
         <h2>{city.country}</h2>
       </div>
       <span>
-        <p>Population: <span className="acent">{city.population}</span></p>
-        <p>Fundation: <span className="acent">{city.fundation}</span></p>
-        <p>Featured Locations: <span className="acent">{city.featuredLocation}</span></p>
+        <p>Population: <span>{city.population}</span></p>
+        <p>Fundation: <span>{city.fundation}</span></p>
+        <p>Featured Locations: <span>{city.featuredLocation}</span></p>
       </span>
       <p>{city.description}</p>
       <div style={{ backgroundImage: `url(${city.photo})` }}>
@@ -38,7 +42,7 @@ const Details = () => {
           Go Back to Cities
         </button>
       </div>
-      <div className="itineraries">
+      <div>
         {itineraries.length === 0 ? (
           <NoItinerariesFound />
         ) : (
