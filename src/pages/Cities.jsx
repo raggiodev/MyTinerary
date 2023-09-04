@@ -2,22 +2,22 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import Card from "../components/Card";
-import {createAllCities} from "../redux/actions/cityActions";
+import {createAllCities, filterCities} from "../redux/actions/cityActions";
 
 const Cities = () => {
   const dispatch = useDispatch();
   const cities = useSelector((state) => state.createAllCitiesReducer.citiesFiltered);
 
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
 
   useEffect(() => {
     document.title = "Cities - MyTinerary";
     dispatch(createAllCities());
   }, [dispatch]);
 
-  const filterCities = cities.filter((city) =>
-    city.city.toLowerCase().trim().startsWith(search.toLowerCase().trim())
-  );
+  // const filterCities = cities.filter((city) =>
+  //   city.city.toLowerCase().trim().startsWith(search.toLowerCase().trim())
+  // );
 
   return (
     <main className="px-4 py-8">
@@ -26,13 +26,14 @@ const Cities = () => {
           type="text"
           name="search"
           placeholder="Search By City"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          // value={search}
+          // onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => dispatch(filterCities(e.target.value))}
           className="border rounded p-2 w-full"
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filterCities.length === 0 ? (
+        {cities.length === 0 ? (
           <section className="text-center">
             <h1 className="text-3xl font-bold mb-2">
               Oh, oh mdfk!, <span className="text-blue-500">Sorry...</span>
@@ -40,7 +41,7 @@ const Cities = () => {
             <h3 className="text-lg">There´s no content for that search.</h3>
           </section>
         ) : (
-          filterCities.map((data, indexMap) => (
+          cities.map((data, indexMap) => (
             <Link to={`/city/${data.city}`} key={indexMap}>
               <Card data={data}></Card>
             </Link>
