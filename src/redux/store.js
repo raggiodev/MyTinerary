@@ -3,9 +3,9 @@ import {createCityReducer, createAllCitiesReducer, createItinerariesByCityReduce
 
 const store = configureStore({
     reducer: {
-        createCityReducer: createCityReducer,
-        createAllCitiesReducer: createAllCitiesReducer,
-        createItinerariesByCityReducer: createItinerariesByCityReducer,
+        createCityReducer,
+        createAllCitiesReducer,
+        createItinerariesByCityReducer,
     }
 })
 
