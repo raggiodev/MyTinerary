@@ -6,8 +6,8 @@ import {createAllCities} from "../redux/actions/cityActions";
 
 const Cities = () => {
   const dispatch = useDispatch();
-  const itineraries = useSelector((state) => state.createItinerariesByCityReducer.itineraries);
-
+  const cities = useSelector((state) => state.createAllCitiesReducer.cities);
+  
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const Cities = () => {
     dispatch(createAllCities());
   }, [dispatch]);
 
-  const filterCities = itineraries.filter((city) =>
+  const filterCities = cities.filter((city) =>
     city.city.toLowerCase().trim().startsWith(search.toLowerCase().trim())
   );
 
