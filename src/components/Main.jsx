@@ -1,7 +1,7 @@
 import Header from '../components/Header'
 import Hero from '../components/Hero'
-import Cities from '../components/Cities'
-import Details from '../components/Details'
+import Cities from '../pages/Cities'
+import Details from '../pages/Details'
 import Footer from '../components/Footer'
 
 const Main = () => {

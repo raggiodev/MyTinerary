@@ -1,4 +1,39 @@
 import axios from "axios";
+import apiURL from "../../utils/apiURL";
+
+// Acción para crear una sola ciudad por nombre
+export const createCity = (name) => async (dispatch) => {
+  try {
+    const res = await axios.get(apiURL + "cities/" + name);
+    dispatch({ type: "READ_ONE_CITY_SUCCESS", payload: res.data.response });
+  } catch (error) {
+    dispatch({ type: "READ_ONE_CITY_FAILURE", payload: error.message });
+  }
+};
+
+// Acción para crear itinerarios por ciudad
+export const createItinerariesByCity = (city) => async (dispatch) => {
+  try {
+    const res = await axios.get(apiURL + "itineraries/" + city);
+    dispatch({ type: "READ_ITINERARIES_BY_CITY_SUCCESS", payload: res.data.response });
+  } catch (error) {
+    dispatch({ type: "READ_ITINERARIES_BY_CITY_FAILURE", payload: error.message });
+  }
+};
+
+// Acción para crear todas las ciudades que coinciden con la búsqueda
+export const createAllCities = (inputSearch) => async (dispatch) => {
+  try {
+    const res = await axios.get(apiURL + "cities");
+    const search = inputSearch.toLowerCase().trim();
+    const filteredCities = res.data.response.filter((c) =>
+      c.city.toLowerCase().trim().startsWith(search)
+    );
+    dispatch({ type: "READ_ALL_CITIES_SUCCESS", payload: filteredCities });
+  } catch (error) {
+    dispatch({ type: "READ_ALL_CITIES_FAILURE", payload: error.message });
+  }
+};
 
 // Acción para crear un nuevo itinerario
 export const createItinerary = (cityId, newItineraryData) => async (dispatch) => {

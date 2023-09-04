@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {NavLink} from "react-router-dom";
-import error404 from "/src/assets/error404.jpeg";
+import error404 from "../assets/error404.jpeg";
 
 const Error404 = () => {
   useEffect(() => {

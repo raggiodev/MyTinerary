@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import rightArrow from "../assets/rightArrow.svg";
-import leftArrow from "../assets/leftArrow.svg";
+import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
 import cities from "../data/cities";
 
 const Carousel = () => {
@@ -29,7 +28,7 @@ const Carousel = () => {
             onClick={previous}
             className="cursor-pointer focus:outline-none p-2 transition-transform transform hover:scale-110"
           >
-            <img src={leftArrow} alt="Previous" />
+            <FaArrowLeft />
           </button>
           <div className="overflow-hidden h-96 w-full relative">
             {cities.map((city, index) => (
@@ -52,7 +51,7 @@ const Carousel = () => {
             onClick={next}
             className="cursor-pointer focus:outline-none p-2 transition-transform transform hover:scale-110"
           >
-            <img src={rightArrow} alt="Next" />
+            <FaArrowRight />
           </button>
         </div>
       </div>

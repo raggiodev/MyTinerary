@@ -1,17 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types'
 
-const Icon = ({ fn, icon }) => {
+const Icon = ({icon, fn}) => {
   return (
-    <div className="icon" onClick={fn}>
-      <img src={icon} alt="Icon" />
-    </div>
-  );
-};
-
-Icon.propTypes = {
-  fn: PropTypes.func.isRequired,
-  icon: PropTypes.string.isRequired,
-};
+      <img className="icon" onClick={()=> fn()} src={icon}/>
+  )
+}
 
 export default Icon;

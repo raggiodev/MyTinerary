@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import store from './redux/store';
 import Main from './components/Main';
 import City from './components/City';
-import Error404 from './components/Error404';
+import Error404 from './pages/Error404';
 
 const router = createHashRouter([
   {

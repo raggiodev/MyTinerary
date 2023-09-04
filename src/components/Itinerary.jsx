@@ -1,8 +1,7 @@
 import React, {useState} from "react";
-import underconstruction from "../assets/underConstruction.jpg";
-import unLikeImage from "../assets/unLike.jpg";
-import likeImage from "../assets/like.jpg";
-import dollar from "../assets/dollar.jpg";
+import {FaHeart, FaRegHeart, FaMoneyBillWave} from "react-icons/fa";
+import {BsChevronDown} from "react-icons/bs";
+import underConstruction from "../assets/underConstruction.jpg";
 
 const Itinerary = ({ data }) => {
   const [expanded, setExpanded] = useState(false);
@@ -18,33 +17,41 @@ const Itinerary = ({ data }) => {
     }
   };
 
-  const likeImageSrc = isLiked ? likeImage : unLikeImage;
+  const likeIcon = isLiked ? <FaHeart /> : <FaRegHeart />;
 
   const renderDollarIcons = () => {
     const dollarIcons = [];
     for (let i = 0; i < data.price; i++) {
-      dollarIcons.push(<img key={i} src="../assets/dollar.jpg" alt="Dollar" />);
+      dollarIcons.push(<FaMoneyBillWave key={i} className="w-4 h-4 inline-block" />);
     }
     return dollarIcons;
   };
 
   return (
-    <div className="itinerary">
-      <div style={{ backgroundImage: `url(${data.photo})` }}>
-        <div className="like">
-          <div className="heart" onClick={toggleLike}>
+    <div className="itinerary border rounded-md overflow-hidden">
+      <div
+        style={{ backgroundImage: `url(${data.photo})` }}
+        className="h-40 bg-cover bg-center relative"
+      >
+        <div className="like absolute top-2 right-2">
+          <div
+            className={`heart cursor-pointer ${
+              isLiked ? "heart-active" : ""
+            }`}
+            onClick={toggleLike}
+          >
+            {likeIcon}
             {likes}
-            <img src={likeImageSrc} alt="Like" />
           </div>
         </div>
       </div>
-      <h1>{data.name}</h1>
-      <div className="tags">
+      <h1 className="text-xl font-semibold p-2">{data.name}</h1>
+      <div className="tags p-2">
         {data.tematicHashtags.map((tag, index) => (
           <p key={index}>{tag}</p>
         ))}
       </div>
-      <div className="collapse">
+      <div className="collapse p-2">
         <div className="author">
           <img src={data.authorPhoto} alt={data.authorName} />
           <h3>{data.authorName}</h3>
@@ -67,20 +74,15 @@ const Itinerary = ({ data }) => {
         </div>
         <img
           style={{ maxWidth: "90%", maxHeight: "10rem" }}
-          src={underconstruction}
+          src={underConstruction}
           alt="workers construction house"
         />
       </div>
-      <div onClick={() => setExpanded(!expanded)}>
-        View More{" "}
-        <img
-          src="../assets/dollar.jpg"
-          alt="Chevron Down"
-          style={{
-            transition: "1s ease",
-            transform: expanded ? "rotate(-180deg)" : "",
-          }}
-        />
+      <div
+        onClick={() => setExpanded(!expanded)}
+        className="view-more cursor-pointer p-2 text-blue-500 hover:underline"
+      >
+        View More <BsChevronDown size="1rem" style={{ transition: "1s ease", transform: expanded ? 'rotate(-180deg)' : '' }} />
       </div>
     </div>
   );
