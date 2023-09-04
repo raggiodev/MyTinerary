@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white py-8">
       <div className="container mx-auto">
         <nav className="flex justify-center mb-4">
-          <Link to="/" className="mr-4 hover:underline">Home</Link>
-          <Link to="/cities" className="hover:underline">Cities</Link>
+          <NavLink to="/" className="mr-4 hover:underline">Home</NavLink>
+          <NavLink to="/cities" className="hover:underline">Cities</NavLink>
         </nav>
         <div className="flex justify-center space-x-4">
           <a href="#"                       className="hover:text-gray-400 fab fa-whatsapp text-xl">wpp logo</a>
