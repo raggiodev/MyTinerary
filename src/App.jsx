@@ -5,8 +5,8 @@ import store from './redux/store';
 import Main from './components/Main';
 import Cities from './pages/Cities';
 import Details from './pages/Details';
-import SignUp from './pages/SignUp';
-import SignIn from './pages/SignIn';
+// import SignUp from './pages/SignUp';
+// import SignIn from './pages/SignIn';
 import Error404 from './pages/Error404';
 
 const router = createHashRouter([
@@ -22,14 +22,14 @@ const router = createHashRouter([
     path: '/city/:id',
     element: <Details />,
   },
-  {
-    path: '/signup',
-    element: <SignUp />
-  },
-  {
-    path: '/signin',
-    element: <SignIn />
-  },
+  // {
+  //   path: '/signup',
+  //   element: <SignUp />
+  // },
+  // {
+  //   path: '/signin',
+  //   element: <SignIn />
+  // },
   {
     path: '*',
     element: <Error404 />
