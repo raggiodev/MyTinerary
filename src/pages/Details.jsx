@@ -44,7 +44,7 @@ const Details = () => {
         <span className="text-xl">
           <p>Country: {city.country}</p>
           <p>Population: {city.population}</p>
-          <p>Fundation: {city.fundation}</p>
+          <p>Foundation: {city.foundation}</p>
         </span>
         <p className="mt-4">{city.description}</p>
         <div className="bg-white rounded-md p-4 mt-4">
