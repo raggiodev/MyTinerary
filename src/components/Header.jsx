@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {Link, NavLink} from 'react-router-dom';
-import logo from '../assets/logo.svg';
-import iconUser from '../assets/user.svg';
+import React, {useState} from "react";
+import {Link, NavLink} from "react-router-dom";
+import logo from "../assets/logo.svg";
+import iconUser from "../assets/user.svg";
 
 const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -18,6 +18,7 @@ const Header = () => {
         <div className="hidden md:flex space-x-4">
           <NavLink
             to="/"
+            exact
             className="text-lg hover:text-gray-300"
             activeClassName="border-b-2 border-white"
           >
@@ -35,7 +36,7 @@ const Header = () => {
           <button
             onClick={() => setNavOpen(!navOpen)}
             className={`text-white hover:text-gray-300 focus:outline-none transition-transform ${
-              navOpen ? 'transform rotate-90' : 'transform rotate-0'
+              navOpen ? "transform rotate-90" : "transform rotate-0"
             }`}
           >
             <svg
@@ -51,15 +52,25 @@ const Header = () => {
             </svg>
           </button>
         </nav>
-        <nav className={`md:flex items-center space-x-4 ${navOpen ? 'block' : 'hidden'}`}>
+        <nav
+          className={`md:flex items-center space-x-4 ${
+            navOpen ? "block" : "hidden"
+          }`}
+        >
           <div className="md:flex space-x-4">
-            <button className="px-4 py-2 rounded-full bg-blue-700 hover:bg-blue-800 flex items-center">
+            <NavLink
+              to="/signin"
+              className="px-4 py-2 rounded-full bg-blue-700 hover:bg-blue-800 flex items-center text-white"
+            >
               <img src={iconUser} alt="User Icon" className="w-6 h-6 mr-2" />
               Login
-            </button>
-            <button className="px-4 py-2 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center">
+            </NavLink>
+            <NavLink
+              to="/signup"
+              className="px-4 py-2 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center"
+            >
               Get Started
-            </button>
+            </NavLink>
           </div>
         </nav>
       </div>
