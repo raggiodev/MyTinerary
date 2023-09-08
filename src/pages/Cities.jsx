@@ -59,7 +59,7 @@ const Cities = () => {
           onClick={() => navigate("/")}
           className="bg-blue-500 text-white px-6 py-3 rounded-full mt-4 hover:bg-blue-600 hover:shadow-md transition duration-300 ease-in-out bg-center"
         >
-          GO BACK TO MAIN
+          Go Back to Main
         </button>
       </main>
       <Footer />

@@ -5,7 +5,7 @@ import underConstruction from "../assets/underConstruction.jpg";
 
 const Itinerary = ({ data }) => {
   if (!data) {
-    return <h1>Loading...</h1>;
+    return <div className="text-center text-8xl mt-8">LOADING...</div>;
   }
 
   const [expanded, setExpanded] = useState(false);
@@ -14,11 +14,7 @@ const Itinerary = ({ data }) => {
 
   const toggleLike = () => {
     setIsLiked(!isLiked);
-    if (isLiked) {
-      setLikes(likes - 1);
-    } else {
-      setLikes(likes + 1);
-    }
+    setLikes((prevLikes) => (isLiked ? prevLikes - 1 : prevLikes + 1));
   };
 
   const likeIcon = isLiked ? <FaHeart /> : <FaRegHeart />;
@@ -35,22 +31,22 @@ const Itinerary = ({ data }) => {
 
   return (
     <div className="border rounded-md overflow-hidden text-center">
+      <h1 className="text-2xl font-bold p-2">{data.title}</h1>
       <div
         style={{ backgroundImage: `url(${data.photo})` }}
-        className="h-40 bg-cover bg-center relative"
+        className="h-80 bg-cover bg-center relative"
       >
         <div className="absolute top-2 right-2">
           <div
-            className={`${
-              isLiked ? "text-red-500" : ""
-            } cursor-pointer bg-gray-200 rounded-full p-2`}
+            className={`${ isLiked ? "text-red-500" : "" }
+              cursor-pointer bg-gray-200 rounded-full p-2`}
             onClick={toggleLike}
           >
             {likeIcon} {likes}
           </div>
         </div>
       </div>
-      <h1 className="text-xl font-semibold p-2">{data.name}</h1>
+      <h2 className="text-xl font-semibold p-2">{data.name}</h2>
       <div className="p-2 flex flex-wrap justify-center">
         {data.hashtags.map((tag, index) => (
           <span
