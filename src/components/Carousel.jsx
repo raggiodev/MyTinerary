@@ -3,24 +3,32 @@ import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
 import cities from "../data/cities";
 
 const Carousel = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const previous = () => {
-    setSelectedIndex((prevIndex) =>
+    setCurrentIndex((prevIndex) =>
       prevIndex > 0 ? prevIndex - 1 : cities.length - 1
     );
   };
 
   const next = () => {
-    setSelectedIndex((prevIndex) =>
+    setCurrentIndex((prevIndex) =>
       prevIndex < cities.length - 1 ? prevIndex + 1 : 0
     );
   };
 
+  const startIndex = currentIndex;
+  const visibleCities = [
+    cities[startIndex],
+    cities[(startIndex + 1) % cities.length],
+    cities[(startIndex + 2) % cities.length],
+    cities[(startIndex + 3) % cities.length],
+  ];
+
   return (
     <div className="flex flex-col items-center mt-8">
       <h2 className="mb-4 text-lg font-semibold text-center w-[1080px] pl-4">
-        Popular Mytineraries
+        Know the Popular Mytineraries
       </h2>
       <div className="relative w-full max-w-4xl">
         <div className="flex items-center justify-center">
@@ -30,19 +38,21 @@ const Carousel = () => {
           >
             <FaArrowLeft />
           </button>
-          <div className="overflow-hidden h-96 w-full relative">
-            {cities.map((city, index) => (
+          <div className="flex w-full">
+            {visibleCities.map((city) => (
               <div
                 key={city.city}
-                className={`h-full w-full absolute top-0 transition-transform duration-300 ease-in-out ${index === selectedIndex ? "" : "transform translate-x-full"}`}
+                className="w-1/4 p-1 transition-transform duration-300 ease-in-out"
               >
-                <img
-                  src={city.photo}
-                  alt={city.city}
-                  className="h-full w-full object-cover rounded-lg"
-                />
-                <div className="absolute bottom-0 left-0 p-4 bg-opacity-70 bg-gray-800 text-white w-full">
-                  <p className="text-lg font-semibold">{city.city}</p>
+                <div className="relative h-96">
+                  <img
+                    src={city.photo}
+                    alt={city.city}
+                    className="h-full w-full object-cover rounded-lg"
+                  />
+                  <div className="absolute bottom-0 left-0 p-4 bg-opacity-70 bg-gray-800 text-white w-full">
+                    <p className="text-lg font-semibold">{city.city}</p>
+                  </div>
                 </div>
               </div>
             ))}
