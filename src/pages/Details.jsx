@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  createCity,
-  fetchItinerariesByCity,
-} from "../redux/actions/cityActions";
+import React, {useEffect} from "react";
+import {useParams, useNavigate} from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
+import {createCity, fetchItinerariesByCity} from "../redux/actions/cityActions";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Itinerary from "../components/Itinerary";
@@ -40,10 +37,14 @@ const Details = () => {
         className="h-60 bg-cover bg-center"
       >
         <h1 className="text-4xl font-semibold text-white py-10 px-64">
-          {city.city}
+          <span className="bg-black bg-opacity-70 border-l-4 border-violet-800">
+            {city.city}
+          </span>
         </h1>
         <h2 className="text-2xl font-semibold text-white px-64">
-          {city.country}
+          <span className="bg-black bg-opacity-70 border-l-4 border-pink-800">
+            {city.country}
+          </span>
         </h2>
       </div>
       <div className="container mx-auto py-6 px-4">
