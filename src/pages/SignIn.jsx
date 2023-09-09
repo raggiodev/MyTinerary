@@ -1,9 +1,12 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const SignIn = () => {
   return (
     <div className="w-full max-w-[800px] px-3 mx-auto flex-1 items-center shrink-0 mt-64">
+      <Header />
       <div className="relative z-0 flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
         <div className="p-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl">
           <h5>Login with</h5>
@@ -123,7 +126,6 @@ const SignIn = () => {
                 type="password"
               />
             </div>
-
             <div className="text-center">
               <button
                 className="flex justify-center w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-gray-900 to-slate-800 hover:border-slate-700 hover:bg-slate-700 hover:text-white"
@@ -134,13 +136,14 @@ const SignIn = () => {
             </div>
             <p className="mt-4 mb-0 leading-normal text-sm">
               Don&apos;t have an account?{" "}
-              <Link className="font-bold text-slate-700" to="/signup">
+              <NavLink className="font-bold text-slate-700" to="/signup">
                 Sign up
-              </Link>
+              </NavLink>
             </p>
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

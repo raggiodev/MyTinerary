@@ -1,6 +1,8 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
-import {server} from '../utils/axios.js'
+import {NavLink} from "react-router-dom";
+import {server} from "../utils/axios.js";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const SignUp = () => {
   const [data, setData] = useState({
@@ -23,13 +25,14 @@ const SignUp = () => {
     const userData = { ...data };
     if (userData.terms) {
       delete userData.terms;
-      const res = await server.post('/auth', userData)
+      const res = await server.post("/auth", userData);
       console.log(res);
     }
   };
 
   return (
     <div className="w-full max-w-[800px] px-3 mx-auto flex-1 items-center shrink-0 mt-64">
+      <Header />
       <div className="relative z-0 flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
         <div className="p-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl">
           <h5>Register with</h5>
@@ -192,7 +195,6 @@ const SignUp = () => {
                 </svg>
               </label>
             </div>
-
             <div className="text-center">
               <button
                 type="submit"
@@ -203,13 +205,14 @@ const SignUp = () => {
             </div>
             <p className="mt-4 mb-0 leading-normal text-sm">
               Already have an account?{" "}
-              <Link className="font-bold text-slate-700" to="/signin">
+              <NavLink className="font-bold text-slate-700" to="/signin">
                 Sign in
-              </Link>
+              </NavLink>
             </p>
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
