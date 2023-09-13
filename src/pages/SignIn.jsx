@@ -7,9 +7,7 @@ import Footer from "../components/Footer";
 const SignIn = () => {
   const [data, setData] = useState({
     email: "",
-    name: "",
     password: "",
-    terms: false,
   });
 
   const handleChangeData = (e) => {
@@ -128,7 +126,10 @@ const SignIn = () => {
           </div>
         </div>
         <div className="flex-auto p-6">
-          <form role="form text-left">
+          <form
+            role="form text-left"
+            onSubmit={handleSubmitData}
+          >
             <div className="mb-4">
               <input
                 aria-describedby="email-addon"
@@ -140,6 +141,9 @@ const SignIn = () => {
             </div>
             <div className="mb-4">
               <input
+                name="email"
+                onChange={handleChangeData}
+                value={data.email}
                 aria-describedby="password-addon"
                 aria-label="Password"
                 placeholder="Password"
