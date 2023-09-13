@@ -1,9 +1,30 @@
-import React from "react";
+import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
+import {server} from "../utils/axios.js";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const SignIn = () => {
+  const [data, setData] = useState({
+    email: "",
+    name: "",
+    password: "",
+    terms: false,
+  });
+
+  const handleChangeData = (e) => {
+    setData((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
+    });
+  };
+
+  const handleSubmitData = async (e) => {
+    e.preventDefault();
+    const userData = { ...data };
+      const res = await server.post("/auth/signIn", userData);
+      console.log(res.data);
+  };
+
   return (
     <div className="w-full max-w-[800px] px-3 mx-auto flex-1 items-center shrink-0 mt-64">
       <Header />

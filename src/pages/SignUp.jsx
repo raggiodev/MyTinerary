@@ -25,8 +25,8 @@ const SignUp = () => {
     const userData = { ...data };
     if (userData.terms) {
       delete userData.terms;
-      const res = await server.post("/auth", userData);
-      console.log(res);
+      const res = await server.post("/auth/signUp", userData);
+      console.log(res.data);
     }
   };
 
