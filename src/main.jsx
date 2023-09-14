@@ -10,8 +10,7 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <GoogleOAuthProvider clientId={import.meta.env["VITE_GOOGLE_ID"]}>
-      <App />
+    <GoogleOAuthProvider clientId={import.meta.env["VITE_GOOGLE_CLIENT_ID"]}>
       <ToastContainer
         position="top-right"
         hideProgressBar={false}
@@ -22,6 +21,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         pauseOnHover
         theme="dark"
       />
+
+      <App />
     </GoogleOAuthProvider>
   </Provider>
 );

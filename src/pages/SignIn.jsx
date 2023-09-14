@@ -1,10 +1,12 @@
-import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
-import {server} from "../utils/axios.js";
+import React, { useState, useRef } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { server } from "../utils/axios.js";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import {GoogleOAuthProvider} from "@react-oauth/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLoginButton from "../components/GoogleLoginButton.jsx";
+import { useDispatch } from "react-redux";
+import { userSignIn } from "../redux/actions/userActions.js";
 
 const SignIn = () => {
   const [data, setData] = useState({
@@ -12,7 +14,12 @@ const SignIn = () => {
     password: "",
   });
 
-  // console.log(data); // Para visualizar los inputs en la consola
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const inputEmail = useRef();
+  const inputPass = useRef();
 
   const handleChangeData = (e) => {
     setData((prevState) => {
@@ -27,6 +34,26 @@ const SignIn = () => {
     console.log(res.data);
   };
 
+  const handleSubmit = async () => {
+    const userData = {
+      email: inputEmail.current.value,
+      password: inputPass.current.value,
+    };
+    const res = await server.post("/auth/signIn", userData);
+    console.log(res.data);
+    dispatch(userSignIn(res.data));
+    navigate("/");
+  };
+
+  const handleSubmitGoogle = async (data) => {
+    const userData = { ...data };
+    if (userData.terms) delete userData.terms;
+    const res = await server.post("/auth/signIn", userData);
+    console.log(res.data);
+    dispatch(userSignIn(res.data));
+    navigate("/");
+  };
+
   return (
     <div className="w-full max-w-[800px] px-3 mx-auto flex-1 items-center shrink-0 mt-64">
       <Header />
@@ -35,12 +62,10 @@ const SignIn = () => {
           <h5>Login with</h5>
         </div>
         <div className="flex flex-wrap px-3 -mx-3 sm:px-6 xl:px-12">
-
           <GoogleOAuthProvider clientId="681501462437-s90ta5t35bel24cfdq76g7gnpfbsk0v8.apps.googleusercontent.com">
             {}
-            <GoogleLoginButton />
+            <GoogleLoginButton fn={handleSubmitGoogle} />
           </GoogleOAuthProvider>
-
           <div className="relative w-full max-w-full px-3 mt-2 text-center shrink-0">
             <p className="z-20 inline px-4 mb-2 font-semibold leading-normal bg-white text-sm text-slate-400">
               or
@@ -54,6 +79,7 @@ const SignIn = () => {
                 name="email"
                 onChange={handleChangeData}
                 value={data.email}
+                ref={inputEmail}
                 aria-describedby="email-addon"
                 aria-label="Email"
                 placeholder="Email"
@@ -66,6 +92,7 @@ const SignIn = () => {
                 name="password"
                 onChange={handleChangeData}
                 value={data.password}
+                ref={inputPass}
                 aria-describedby="password-addon"
                 aria-label="Password"
                 placeholder="Password"
@@ -75,6 +102,7 @@ const SignIn = () => {
             </div>
             <div className="text-center">
               <button
+                onClick={handleSubmit}
                 className="flex justify-center w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-gray-900 to-slate-800 hover:border-slate-700 hover:bg-slate-700 hover:text-white"
                 type="submit"
               >

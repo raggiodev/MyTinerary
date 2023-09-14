@@ -1,10 +1,12 @@
-import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
-import {server} from "../utils/axios.js";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { server } from "../utils/axios.js";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import {GoogleOAuthProvider} from "@react-oauth/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLoginButton from "../components/GoogleLoginButton.jsx";
+import { useDispatch } from "react-redux";
+import { userSignUp } from "../redux/actions/userActions.js";
 
 const SignUp = () => {
   const [data, setData] = useState({
@@ -13,6 +15,8 @@ const SignUp = () => {
     password: "",
     terms: false,
   });
+
+  const dispatch = useDispatch();
 
   const handleChangeData = (e) => {
     setData((prevState) => {
@@ -29,17 +33,19 @@ const SignUp = () => {
       delete userData.terms;
       const res = await server.post("/auth/signUp", userData);
       console.log(res.data);
+      dispatch(userSignUp(res.data.userData));
     }
   };
 
   const handleSubmitGoogle = async (data) => {
-    const userData = { ...data }
+    const userData = { ...data };
     if (userData.terms) {
       delete userData.terms;
       const res = await server.post("/auth/signUp", userData);
       console.log(res.data);
+      dispatch(userSignUp(res.data.userData));
     }
-  }
+  };
 
   return (
     <div className="w-full max-w-[800px] px-3 mx-auto flex-1 items-center shrink-0 mt-64">
@@ -49,12 +55,10 @@ const SignUp = () => {
           <h5>Register with</h5>
         </div>
         <div className="flex flex-wrap px-3 -mx-3 sm:px-6 xl:px-12">
-
           <GoogleOAuthProvider clientId="681501462437-s90ta5t35bel24cfdq76g7gnpfbsk0v8.apps.googleusercontent.com">
             {}
             <GoogleLoginButton fn={handleSubmitGoogle} />
           </GoogleOAuthProvider>
-
           <div className="relative w-full max-w-full px-3 mt-2 text-center shrink-0">
             <p className="z-20 inline px-4 mb-2 font-semibold leading-normal bg-white text-sm text-slate-400">
               or

@@ -1,10 +1,24 @@
-import React, {useState} from "react";
-import {Link, NavLink} from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import iconUser from "../assets/user.svg";
+import Clock from "./Clock";
+import { useSelector, useDispatch } from "react-redux";
+import { userLogOut } from "../redux/actions/userActions.js";
+import { FaUser } from "react-icons/fa";
+import "../../src/index.css";
 
 const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
+  const user = useSelector((store) => store.userSignUpReducer.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logIn = async () => {
+    setNavOpen(!navOpen);
+    await dispatch(userLogOut());
+    navigate("/signin");
+  };
 
   return (
     <header className="bg-gradient-to-r from-purple-700 via-pink-500 to-red-600 text-white py-4">
@@ -73,7 +87,25 @@ const Header = () => {
             </NavLink>
           </div>
         </nav>
-      </div>
+        <Clock />        
+        {user && Object.keys(user).length !== 0 ? (
+          <li>
+            <button onClick={logIn}>
+              <img
+                src={user.photo}
+                alt={user.name}
+                style={{ borderRadius: "50%" }}
+              />
+              Logout
+            </button>
+          </li>
+        ) : (
+          <button onClick={logIn}>
+            <FaUser className="center-svg"/>
+            Login
+          </button>
+        )}
+        </div>
     </header>
   );
 };

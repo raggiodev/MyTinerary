@@ -9,7 +9,8 @@ export const userSignUp = createAsyncThunk("userSignUp", async (userData) => {
       ...userData,
     });
     return res.data;
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
     return {};
   }
@@ -21,7 +22,8 @@ export const userSignIn = createAsyncThunk("userSignIn", async (userData) => {
       ...userData,
     });
     return res.data;
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
     return {};
   }
@@ -36,7 +38,8 @@ export const logInWithToken = createAsyncThunk("logInWithToken", async () => {
       },
     });
     return res.data;
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
     return {};
   }

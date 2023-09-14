@@ -44,3 +44,9 @@
 ::-webkit-scrollbar-thumb:active {
   background-color: #333;
 }
+
+.center-svg {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
