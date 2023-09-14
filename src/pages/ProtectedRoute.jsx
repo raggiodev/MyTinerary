@@ -9,13 +9,9 @@ const ProtectedRoute = () => {
 
   useEffect(() => {
     setIsAuth(selector);
-  }, []);
+  }, [selector]);  
 
-  return (
-    <>
-      {isAuth ? <Main /> : <Navigate to="/signin" />}
-    </>
-  )
+  return <> {isAuth ? <Main /> : <Navigate to="/signin" />} </>;
 };
 
 export default ProtectedRoute;

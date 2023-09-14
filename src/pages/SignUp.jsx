@@ -1,124 +1,195 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { server } from "../utils/axios.js";
+import React, {useState} from "react";
+import {NavLink, useNavigate} from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleLoginButton from "../components/GoogleLoginButton.jsx";
-import { useDispatch } from "react-redux";
-import { userSignUp } from "../redux/actions/userActions.js";
+import axios from "axios";
+import {useGoogleLogin} from "@react-oauth/google";
+import {useDispatch} from "react-redux";
+import {userSignUp} from "../redux/actions/userActions.js";
+import {unwrapResult} from "@reduxjs/toolkit";
+import {FaEyeSlash, FaEye} from "react-icons/fa6";
 
 const SignUp = () => {
-  const [data, setData] = useState({
-    email: "",
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+  const [userData, setUserData] = useState({
     name: "",
+    email: "",
     password: "",
+    photo: "",
     terms: false,
   });
 
-  const dispatch = useDispatch();
+  const handleChangeUserData = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const actionResult = await dispatch(userSignUp({ ...userData }));
+    const result = await unwrapResult(actionResult);
+    if (result.token) {
+      navigate("/cities");
+    }
+  };
+
+  const login = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      const infoUser = await axios.get(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: {
+            Authorization: "Bearer " + tokenResponse.access_token,
+          },
+        }
+      );
+      const data = {
+        name: infoUser.data.name,
+        email: infoUser.data.email,
+        password: "aA_123", // NO es seguro almacenar una contraseña fija acá
+        photo: infoUser.data.picture,
+      };
+      const actionResult = await dispatch(userSignUp(data));
+      const result = await unwrapResult(actionResult);
+      if (result.token) {
+        navigate("/cities");
+      }
+    },
+  });
 
   const handleChangeData = (e) => {
-    setData((prevState) => {
+    setUserData((prevState) => {
       return e.target.name === "terms"
         ? { ...prevState, [e.target.name]: e.target.checked }
         : { ...prevState, [e.target.name]: e.target.value };
     });
   };
 
-  const handleSubmitData = async (e) => {
-    e.preventDefault();
-    const userData = { ...data };
-    if (userData.terms) {
-      delete userData.terms;
-      const res = await server.post("/auth/signUp", userData);
-      console.log(res.data);
-      dispatch(userSignUp(res.data.userData));
-    }
-  };
-
-  const handleSubmitGoogle = async (data) => {
-    const userData = { ...data };
-    if (userData.terms) {
-      delete userData.terms;
-      const res = await server.post("/auth/signUp", userData);
-      console.log(res.data);
-      dispatch(userSignUp(res.data.userData));
-    }
-  };
-
   return (
-    <div className="w-full max-w-[800px] px-3 mx-auto flex-1 items-center shrink-0 mt-64">
+    <div className="w-full max-w-screen-lg mx-auto mt-64">
       <Header />
-      <div className="relative z-0 flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-        <div className="p-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl">
-          <h5>Register with</h5>
+      <div className="bg-white shadow-xl rounded-2xl">
+        <div className="p-6 mb-0 text-center bg-white rounded-t-2xl">
+          <h5 className="text-lg font-semibold">Register with</h5>
         </div>
-        <div className="flex flex-wrap px-3 -mx-3 sm:px-6 xl:px-12">
-          <GoogleOAuthProvider clientId="681501462437-s90ta5t35bel24cfdq76g7gnpfbsk0v8.apps.googleusercontent.com">
-            {}
-            <GoogleLoginButton fn={handleSubmitGoogle} />
-          </GoogleOAuthProvider>
-          <div className="relative w-full max-w-full px-3 mt-2 text-center shrink-0">
-            <p className="z-20 inline px-4 mb-2 font-semibold leading-normal bg-white text-sm text-slate-400">
-              or
-            </p>
+        <div className="flex flex-wrap px-4 py-2">
+          <button
+            onClick={() => login()}
+            className="w-full py-2 text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
+            type="button"
+          >
+            <GoogleLoginButton />
+          </button>
+          <div className="w-full py-2 text-center">
+            <p className="text-sm text-gray-500">or</p>
           </div>
         </div>
-        <div className="flex-auto p-6">
-          <form role="form text-left" onSubmit={handleSubmitData}>
+        <div className="p-6">
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <input
                 name="name"
-                onChange={handleChangeData}
-                value={data.name}
+                onChange={(e) => handleChangeUserData(e)}
+                value={userData.name}
                 aria-describedby="email-addon"
                 aria-label="Name"
                 placeholder="Name"
-                className="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
+                className="w-full px-4 py-2 text-gray-700 bg-white border rounded-lg shadow-sm focus:ring focus:ring-blue-300 focus:outline-none"
                 type="text"
               />
             </div>
             <div className="mb-4">
               <input
                 name="email"
-                onChange={handleChangeData}
-                value={data.email}
+                onChange={(e) => handleChangeUserData(e)}
+                value={userData.email}
                 aria-describedby="email-addon"
                 aria-label="Email"
                 placeholder="Email"
-                className="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
+                className="w-full px-4 py-2 text-gray-700 bg-white border rounded-lg shadow-sm focus:ring focus:ring-blue-300 focus:outline-none"
                 type="email"
               />
             </div>
-            <div className="mb-4">
+            <div className="mb-4 relative">
               <input
                 name="password"
-                onChange={handleChangeData}
-                value={data.password}
+                onChange={(e) => handleChangeUserData(e)}
+                value={userData.password}
                 aria-describedby="password-addon"
                 aria-label="Password"
                 placeholder="Password"
-                className="text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
-                type="password"
+                className="w-full px-4 py-2 text-gray-700 bg-white border rounded-lg shadow-sm focus:ring focus:ring-blue-300 focus:outline-none"
+                type={showPassword ? "text" : "password"}
+                autoComplete="on"
               />
+              {showPassword ? (
+                <FaEyeSlash
+                  className="absolute top-3 right-3 cursor-pointer text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              ) : (
+                <FaEye
+                  className="absolute top-3 right-3 cursor-pointer text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              )}
             </div>
-            <div className="min-h-6 pl-7 mb-0.5 block">
+            <div className="mb-4 relative">
+              <input
+                name="repeatPassword"
+                onChange={(e) => handleChangeUserData(e)}
+                value={userData.repeatPassword}
+                aria-describedby="repeatPassword-addon"
+                aria-label="Repeat password"
+                placeholder="Repeat password"
+                className="w-full px-4 py-2 text-gray-700 bg-white border rounded-lg shadow-sm focus:ring focus:ring-blue-300 focus:outline-none"
+                type={showPassword ? "text" : "password"}
+                autoComplete="off"
+              />
+              {showPassword ? (
+                <FaEyeSlash
+                  className="absolute top-3 right-3 cursor-pointer text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              ) : (
+                <FaEye
+                  className="absolute top-3 right-3 cursor-pointer text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              )}
+            </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                name="photo"
+                placeholder=" "
+                value={userData.photo}
+                onChange={(e) => handleChangeUserData(e)}
+                className="w-full px-4 py-2 text-gray-700 bg-white border rounded-lg shadow-sm focus:ring focus:ring-blue-300 focus:outline-none"
+              />
+              <label htmlFor="photo" className="text-sm text-gray-500">
+                Insert your profile photo URL here!
+              </label>
+            </div>
+            <div className="mb-4">
               <input
                 name="terms"
                 onChange={handleChangeData}
-                value={data.terms}
+                value={userData.terms}
                 type="checkbox"
                 className="w-5 h-5 ease-soft -ml-7 rounded-1.4 checked:bg-gradient-to-tl checked:from-gray-900 checked:to-slate-800 after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100"
                 id="terms"
               />
               <label
                 htmlFor="terms"
-                className="mb-2 ml-1 font-normal cursor-pointer select-none text-sm text-slate-700"
+                className="mb-2 ml-1 font-normal cursor-pointer select-none text-sm text-gray-700"
               >
-                {" "}
-                I agree the{" "}
-                <a className="font-bold text-slate-700">Terms and Conditions</a>
+                I agree to the{" "}
+                <NavLink className="font-bold text-blue-600" to="/terms">
+                  Terms and Conditions
+                </NavLink>
                 <svg
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -131,14 +202,14 @@ const SignUp = () => {
             <div className="text-center">
               <button
                 type="submit"
-                className="flex justify-center w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-gray-900 to-slate-800 hover:border-slate-700 hover:bg-slate-700 hover:text-white"
+                className="w-full px-6 py-3 mt-6 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
               >
                 Sign up
               </button>
             </div>
-            <p className="mt-4 mb-0 leading-normal text-sm">
+            <p className="mt-4 text-sm text-gray-500">
               Already have an account?{" "}
-              <NavLink className="font-bold text-slate-700" to="/signin">
+              <NavLink className="font-bold text-blue-600" to="/signin">
                 Sign in
               </NavLink>
             </p>

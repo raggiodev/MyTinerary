@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {FaHeart, FaRegHeart, FaMoneyBillWave} from "react-icons/fa";
-import {BsChevronDown} from "react-icons/bs";
-import underConstruction from "../assets/underConstruction.jpg";
+import React, { useState } from "react";
+import { FaHeart, FaRegHeart, FaMoneyBillWave } from "react-icons/fa";
+import { BsChevronDown } from "react-icons/bs";
+import Activities from "./Activities";
 
 const Itinerary = ({ data }) => {
   if (!data) {
@@ -11,6 +11,7 @@ const Itinerary = ({ data }) => {
   const [expanded, setExpanded] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(data.likes);
+  const [showActivities, setShowActivities] = useState(false);
 
   const toggleLike = () => {
     setIsLiked(!isLiked);
@@ -38,7 +39,7 @@ const Itinerary = ({ data }) => {
       >
         <div className="absolute top-2 right-2">
           <div
-            className={`${ isLiked ? "text-red-500" : "" }
+            className={`${isLiked ? "text-red-500" : ""}
               cursor-pointer bg-gray-200 rounded-full p-2`}
             onClick={toggleLike}
           >
@@ -73,37 +74,23 @@ const Itinerary = ({ data }) => {
           <span className="font-semibold">Duration:</span> {data.duration} min
         </h5>
       </div>
-      <div className="p-2">
-        <div
-          className={`${
-            expanded ? "opacity-100 max-h-96" : "opacity-0 max-h-0"
-          } transition-all duration-500 ease-in-out overflow-hidden`}
-        >
-          <h2 className="mb-2">
-            Section <span>Under</span> Construction
-          </h2>
-          <h5 className="mb-2">Content will be available soon</h5>
-          <div className="flex items-center justify-center">
-            <img
-              style={{ maxWidth: "90%", maxHeight: "10rem" }}
-              src={underConstruction}
-              alt="workers construction house"
-            />
-          </div>
-        </div>
-      </div>
       <div
-        onClick={() => setExpanded(!expanded)}
+        onClick={() => setShowActivities(!showActivities)}
         className="cursor-pointer p-2 text-blue-500 hover:underline"
       >
         View More{" "}
         <BsChevronDown
           size="1rem"
           className={`${
-            expanded ? "transform rotate-180" : ""
+            showActivities ? "transform rotate-180" : ""
           } transition-transform duration-500 ease-in-out`}
         />
       </div>
+      {showActivities && (
+        <div className={expanded ? "expanded" : "collapsed expanded"}>
+          <Activities itineraryId={data._id} />
+        </div>
+      )}
     </div>
   );
 };

@@ -9,15 +9,16 @@ import { FaUser } from "react-icons/fa";
 import "../../src/index.css";
 
 const Header = () => {
-  const [navOpen, setNavOpen] = useState(false);
-  const user = useSelector((store) => store.userSignUpReducer.user);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [navOpen, setNavOpen] = useState(false)
+  const user = useSelector(store => store.userSignUpReducer.user)
+  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const logIn = async () => {
-    setNavOpen(!navOpen);
-    await dispatch(userLogOut());
-    navigate("/signin");
+    setNavOpen(!navOpen)
+    await dispatch(userLogOut())
+    navigate('/signin')
   };
 
   return (
@@ -88,8 +89,8 @@ const Header = () => {
           </div>
         </nav>
         <Clock />        
-        {user && Object.keys(user).length !== 0 ? (
-          <li>
+        { user && Object.keys(user).length !== 0 ? (
+          <div>
             <button onClick={logIn}>
               <img
                 src={user.photo}
@@ -98,13 +99,13 @@ const Header = () => {
               />
               Logout
             </button>
-          </li>
+          </div>
         ) : (
           <button onClick={logIn}>
             <FaUser className="center-svg"/>
             Login
           </button>
-        )}
+        ) }
         </div>
     </header>
   );
