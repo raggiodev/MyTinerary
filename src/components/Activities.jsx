@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { apiURL } from "../Utils/apiURL.js";
@@ -15,17 +14,17 @@ const Activities = ({ itineraryId }) => {
 
   return (
     <>
-      {activities && activities == "" ? (
-        <div style={{ display: "flex", alignItems: "center" }}>
+      {activities && activities.length === 0 ? (
+        <div className="flex items-center">
           <div>
             <h2>
-              No <span className="acent">Activities</span> for this Itinerary
-              Yet
+              No <span className="text-accent">Activities</span> for this
+              Itinerary Yet
             </h2>
             <h5>Comment asking for more content</h5>
           </div>
           <img
-            style={{ maxWidth: "90%", maxHeight: "10rem" }}
+            className="max-w-90 max-h-10rem"
             src={TbGoGame}
             alt="activities"
           />
@@ -36,7 +35,7 @@ const Activities = ({ itineraryId }) => {
             <div className="activity" key={indexMap}>
               <h2>{activity.name}</h2>
               <img
-                style={{ maxWidth: "90%", maxHeight: "10rem" }}
+                className="max-w-90 max-h-10rem"
                 src={activity.photo}
                 alt={activity.name}
               />
