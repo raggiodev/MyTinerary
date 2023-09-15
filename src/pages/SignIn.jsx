@@ -28,10 +28,8 @@ const SignIn = () => {
         }
       );
       const data = {
-        name: infoUser.data.name,
         email: infoUser.data.email,
         password: "aA_123", // NO es seguro almacenar una contraseña fija acá
-        photo: infoUser.data.picture,
       };
       const actionResult = await dispatch(userSignIn(data));
       const result = await unwrapResult(actionResult);
