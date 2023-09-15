@@ -93,8 +93,8 @@ const Header = () => {
           <div>
             <button onClick={logIn}>
               <img
-                src={user.photo}
-                alt={user.name}
+                src={user?.photo}
+                alt={user?.name}
                 style={{ borderRadius: "50%" }}
               />
               Logout

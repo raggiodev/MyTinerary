@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { apiURL } from "../Utils/apiURL.js";
-import { TbGoGame } from "react-icons/tb";
+import {useEffect, useState} from "react";
+import {apiURL} from "../utils/apiURL.js";
+import {TbGoGame} from "react-icons/tb";
 
 const Activities = ({ itineraryId }) => {
   const [activities, setActivities] = useState([]);
