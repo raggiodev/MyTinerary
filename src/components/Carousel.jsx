@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
 import cities from "../data/cities";
+import "../index.css";
 
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -42,7 +43,7 @@ const Carousel = () => {
             {visibleCities.map((city) => (
               <div
                 key={city.city}
-                className="w-1/4 p-1 transition-transform duration-300 ease-in-out"
+                className="w-1/4 p-1 transform transition-transform duration-300 ease-in-out newItemCarousel"
               >
                 <div className="relative h-96">
                   <img
@@ -57,6 +58,7 @@ const Carousel = () => {
               </div>
             ))}
           </div>
+
           <button
             onClick={next}
             className="cursor-pointer focus:outline-none p-2 transition-transform transform hover:scale-110"

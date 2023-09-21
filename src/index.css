@@ -50,3 +50,19 @@
   justify-content: center;
   margin: 0 auto;
 }
+
+.newItemCarousel {
+  animation: newItem 1s ease;
+}
+@keyframes newItem {
+  from {
+    translate: 5em 0;
+    scale: 0.8;
+    opacity: 0.9;
+  }
+  to {
+    translate: 0 0;
+    scale: 1;
+    opacity: 1;
+  }
+}
