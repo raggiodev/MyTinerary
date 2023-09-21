@@ -6,14 +6,14 @@ const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const previous = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex > 0 ? prevIndex - 1 : cities.length - 1
+    setCurrentIndex((actualIndex) =>
+      actualIndex > 0 ? actualIndex - 1 : cities.length - 1
     );
   };
 
   const next = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex < cities.length - 1 ? prevIndex + 1 : 0
+    setCurrentIndex((actualIndex) =>
+      actualIndex < cities.length - 1 ? actualIndex + 1 : 0
     );
   };
 
