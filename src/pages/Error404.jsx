@@ -1,6 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import error404 from '../assets/error404.jpeg';
+import React, {useState, useEffect} from "react";
+import {NavLink} from "react-router-dom";
+import error404 from "../assets/error404.jpeg";
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
 
 const Error404 = () => {
   const [showGame, setShowGame] = useState(false);
@@ -9,24 +29,48 @@ const Error404 = () => {
   const [winner, setWinner] = useState(null);
 
   useEffect(() => {
-    document.title = 'Error 404: MyTinerary';
+    document.title = "Error 404: MyTinerary";
   }, []);
+
+  useEffect(() => {
+    if (!xIsNext && showGame && !winner) {
+      // Simular el movimiento de una IA
+      const squares = [...board];
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * 9);
+      } while (squares[randomIndex]);
+      squares[randomIndex] = "O";
+
+      // Actualizar estado del tablero
+      setBoard(squares);
+      setXIsNext(true);
+
+      // Comprobar si hay ganador después del movimiento de la IA
+      const gameWinner = calculateWinner(squares);
+      if (gameWinner) {
+        setWinner(gameWinner);
+      }
+    }
+  }, [xIsNext, showGame, board, winner]);
 
   const toggleGame = () => {
     setShowGame(!showGame);
   };
 
   const handleClick = (index) => {
-    const squares = [...board];
-
-    if (calculateWinner(squares) || squares[index]) {
+    if (!showGame || winner || board[index]) {
       return;
     }
 
-    squares[index] = xIsNext ? 'X' : 'O';
+    const squares = [...board];
+    squares[index] = xIsNext ? "X" : "O";
+
+    // Actualizar estado tablero
     setBoard(squares);
     setXIsNext(!xIsNext);
 
+    // Comprobar si hay ganador después del movimiento del user
     const gameWinner = calculateWinner(squares);
     if (gameWinner) {
       setWinner(gameWinner);
@@ -54,9 +98,9 @@ const Error404 = () => {
   if (winner) {
     status = `Ganador: ${winner}`;
   } else if (!board.includes(null)) {
-    status = 'Empate';
+    status = "Empate";
   } else {
-    status = `Siguiente jugador: ${xIsNext ? 'X' : 'O'}`;
+    status = `Siguiente jugador: ${xIsNext ? "X" : "O"}`;
   }
 
   return (
@@ -88,7 +132,7 @@ const Error404 = () => {
       </aside>
 
       <div className="error-404">
-        <div style={{ display: showGame ? 'none' : 'block' }}>
+        <div style={{ display: showGame ? "none" : "block" }}>
           <button
             onClick={toggleGame}
             className="bg-transparent border border-black cursor-pointer transform hover:scale-105 transition-transform duration-300"
@@ -102,7 +146,7 @@ const Error404 = () => {
             <div className="board grid grid-cols-3 gap-4">
               {Array.from({ length: 9 }, (_, index) => renderSquare(index))}
             </div>
-            {winner || !board.includes(null) ? (
+            {(winner || !board.includes(null)) && (
               <div className="mt-4">
                 <button
                   onClick={resetGame}
@@ -111,7 +155,7 @@ const Error404 = () => {
                   Reiniciar
                 </button>
               </div>
-            ) : null}
+            )}
           </div>
         )}
       </div>
@@ -120,27 +164,3 @@ const Error404 = () => {
 };
 
 export default Error404;
-
-function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (
-      squares[a] &&
-      squares[a] === squares[b] &&
-      squares[a] === squares[c]
-    ) {
-      return squares[a];
-    }
-  }
-  return null;
-}
