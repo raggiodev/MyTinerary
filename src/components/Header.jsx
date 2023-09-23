@@ -95,7 +95,7 @@ const Header = () => {
               <img
                 src={user?.photo}
                 alt={user?.name}
-                style={{ borderRadius: "50%" }}
+                className="w-12 h-12 rounded-full"
               />
               Logout
             </button>

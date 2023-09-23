@@ -14,6 +14,7 @@ import {toast} from "react-toastify";
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const repeatPassword = useRef();
   const [showPassword, setShowPassword] = useState(false);
   const [terms, setTerms] = useState(false);
   const [userData, setUserData] = useState({
@@ -22,6 +23,7 @@ const SignUp = () => {
     password: "",
     photo: ""
   });
+
 
   const handleChangeUserData = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -34,9 +36,7 @@ const SignUp = () => {
       return;
     }
 
-    const userData = repeatPassword.current.value;
-
-    if (userData.password !== repeatPassword) {
+    if (userData.password !== repeatPassword.current.value) {
       toast.error("ERROR: Passwords do not match.");
       return;
     }
@@ -47,8 +47,6 @@ const SignUp = () => {
       navigate("/cities");
     }
   };
-
-  const repeatPassword = useRef();
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
