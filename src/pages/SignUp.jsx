@@ -9,11 +9,13 @@ import {useDispatch} from "react-redux";
 import {userSignUp} from "../redux/actions/userActions.js";
 import {unwrapResult} from "@reduxjs/toolkit";
 import {FaEyeSlash, FaEye} from "react-icons/fa6";
+import {toast} from "react-toastify";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const [terms, setTerms] = useState(false);
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -28,6 +30,10 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!terms) {
+      toast.error("Error");
+      return;
+    }
     const actionResult = await dispatch(userSignUp({ ...userData }));
     const result = await unwrapResult(actionResult);
     if (result.token) {
@@ -61,9 +67,7 @@ const SignUp = () => {
 
   const handleChangeData = (e) => {
     setUserData((prevState) => {
-      return e.target.name === "terms"
-        ? { ...prevState, [e.target.name]: e.target.checked }
-        : { ...prevState, [e.target.name]: e.target.value };
+      return { ...prevState, [e.target.name]: e.target.value }
     });
   };
 
@@ -176,8 +180,7 @@ const SignUp = () => {
             <div className="mb-4">
               <input
                 name="terms"
-                onChange={handleChangeData}
-                value={userData.terms}
+                onChange={setTerms(!terms)}
                 type="checkbox"
                 className="w-5 h-5 ease-soft -ml-7 rounded-1.4 checked:bg-gradient-to-tl checked:from-gray-900 checked:to-slate-800 after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100"
                 id="terms"
