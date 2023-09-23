@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { FaHeart, FaRegHeart, FaMoneyBillWave } from "react-icons/fa";
-import { BsChevronDown } from "react-icons/bs";
+import React, {useState} from "react";
+import {FaHeart, FaRegHeart, FaMoneyBillWave} from "react-icons/fa";
+import {BsChevronDown} from "react-icons/bs";
 import Activities from "./Activities";
+import Comments from "./Comments";
 
 const Itinerary = ({ data }) => {
-  if (!data) {
-    return <div className="text-center text-8xl mt-8">LOADING...</div>;
-  }
-
   const [expanded, setExpanded] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(data.likes);
   const [showActivities, setShowActivities] = useState(false);
+
+  if (!data) {
+    return <div className="text-center text-8xl mt-8">LOADING...</div>;
+  }
 
   const toggleLike = () => {
     setIsLiked(!isLiked);
@@ -78,7 +79,7 @@ const Itinerary = ({ data }) => {
         onClick={() => setShowActivities(!showActivities)}
         className="cursor-pointer p-2 text-blue-500 hover:underline"
       >
-        View More{" "}
+        View More
         <BsChevronDown
           size="1rem"
           className={`${
@@ -91,6 +92,7 @@ const Itinerary = ({ data }) => {
           <Activities itineraryId={data._id} />
         </div>
       )}
+      <Comments itineraryId={data._id} />
     </div>
   );
 };

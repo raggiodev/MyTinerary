@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
-import iconUser from "../assets/user.svg";
 import Clock from "./Clock";
 import { useSelector, useDispatch } from "react-redux";
 import { userLogOut } from "../redux/actions/userActions.js";
@@ -73,13 +72,21 @@ const Header = () => {
           }`}
         >
           <div className="md:flex space-x-4">
-            <NavLink
-              to="/signin"
-              className="px-4 py-2 rounded-full bg-blue-700 hover:bg-blue-800 flex items-center text-white"
-            >
-              <img src={iconUser} alt="User Icon" className="w-6 h-6 mr-2" />
-              Login
-            </NavLink>
+            { user && Object.keys(user).length !== 0 ? (
+              <button onClick={logIn}>
+                <img
+                  src={user?.photo}
+                  alt={user?.name}
+                  className="w-12 h-12 rounded-full"
+                />
+                Logout
+              </button>
+            ) : (
+              <button onClick={logIn}>
+                <FaUser className="center-svg"/>
+                Login
+              </button>
+            ) }
             <NavLink
               to="/signup"
               className="px-4 py-2 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center"
@@ -88,25 +95,8 @@ const Header = () => {
             </NavLink>
           </div>
         </nav>
-        <Clock />        
-        { user && Object.keys(user).length !== 0 ? (
-          <div>
-            <button onClick={logIn}>
-              <img
-                src={user?.photo}
-                alt={user?.name}
-                className="w-12 h-12 rounded-full"
-              />
-              Logout
-            </button>
-          </div>
-        ) : (
-          <button onClick={logIn}>
-            <FaUser className="center-svg"/>
-            Login
-          </button>
-        ) }
-        </div>
+        <Clock />
+      </div>
     </header>
   );
 };

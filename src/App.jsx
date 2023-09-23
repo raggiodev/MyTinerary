@@ -9,40 +9,46 @@ import Error404 from "./pages/Error404";
 import {useSelector, useDispatch} from "react-redux";
 import {logInWithToken} from "./redux/actions/userActions";
 
-const ProtectedRoute = ({children}) => {
-  const isOnline = useSelector(store => store.userSignUpReducer.isOnline);
+const ProtectedRoute = ({ children }) => {
+  const isOnline = useSelector((store) => store.userSignUpReducer.isOnline)
 
-  return isOnline ? <Navigate to="/" /> : children;
-
-}
+  return isOnline ? <Navigate to="/" /> : children
+};
 
 const router = createHashRouter([
   {
-    path: '/',
+    path: "/",
     element: <Main />,
   },
   {
-    path: '/cities',
+    path: "/cities",
     element: <Cities />,
   },
   {
-    path: '/city/:id',
+    path: "/city/:id",
     element: <Details />,
   },
   {
-    path: '/signup',
-    element: <ProtectedRoute> <SignUp /> </ProtectedRoute>
+    path: "/signup",
+    element: (
+      <ProtectedRoute>
+        <SignUp />
+      </ProtectedRoute>
+    ),
   },
   {
-    path: '/signin',
-    element: <ProtectedRoute> <SignIn /> </ProtectedRoute>
+    path: "/signin",
+    element: (
+      <ProtectedRoute>
+        <SignIn />
+      </ProtectedRoute>
+    ),
   },
   {
-    path: '*',
-    element: <Error404 />
-  }
+    path: "*",
+    element: <Error404 />,
+  },
 ]);
-
 
 function App() {
   const dispatch = useDispatch();

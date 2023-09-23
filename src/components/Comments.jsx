@@ -29,15 +29,15 @@ const Comments = ({ itineraryId }) => {
 
     axios
       .post(apiURL + "comments", {
-        itineraryId: itineraryId,
         userId: user._id,
+        itineraryId: itineraryId,
         text: commentTextArea.current.value,
       })
       .then((response) => {
         const newComment = {
           ...response.data.response,
           userId: {
-            fullName: user.fullName,
+            name: user.name,
             photo: user.photo,
           },
         };
@@ -60,9 +60,9 @@ const Comments = ({ itineraryId }) => {
           comments.map((comment, indexMap) => {
             return (
               <div key={indexMap}>
-                <img src={comment.userId.photo} alt={comment.userId.fullName} />
+                <img src={comment.userId.photo} alt={comment.userId.name} />
                 <div>
-                  <h5>{comment.userId.fullName}</h5>
+                  <h5>{comment.userId.name}</h5>
                   <p>{comment.text}</p>
                 </div>
               </div>
