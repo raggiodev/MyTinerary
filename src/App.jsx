@@ -3,57 +3,18 @@ import {Navigate, RouterProvider, createHashRouter} from "react-router-dom";
 import Main from "./components/Main";
 import Cities from "./pages/Cities";
 import Details from "./pages/Details";
-import ProtectedRoute from "./pages/ProtectedRoute";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Error404 from "./pages/Error404";
-import {useDispatch} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {logInWithToken} from "./redux/actions/userActions";
-import {UseSelector} from "react-redux/es/hooks/useSelector";
 
 const ProtectedRoute = ({children}) => {
-  const isOnline = useSelector(store => store.userReducer.isOnline);
+  const isOnline = useSelector(store => store.userSignUpReducer.isOnline);
 
   return isOnline ? <Navigate to="/" /> : children;
 
 }
-
-// const router = createHashRouter([
-//   {
-//     path: "/",
-//     element: <ProtectedRoute />,
-//     children: [
-//       {
-//         path: "/",
-//         element: <Main />,
-//         children: [
-//           {
-//             path: "/cities",
-//             element: <Cities />,
-//           },
-//           {
-//             path: "/cities/:id",
-//             element: <Details />,
-//           },
-//         ],
-//       },
-//     ],
-//   },
-//   {
-//     path: "/signup",
-//     element: <SignUp />,
-//   },
-//   {
-//     path: "/signin",
-//     element: <SignIn />,
-//   },
-//   {
-//     path: "*",
-//     element: <Error404 />,
-//   },
-// ]);
-
-// SI NO FUNCIONA ProtectedRoute (Por qué? Necesito orientación ahí). COMENTAR LAS RUTAS ANTERIORES Y USAR ESTAS:
 
 const router = createHashRouter([
   {
@@ -70,11 +31,11 @@ const router = createHashRouter([
   },
   {
     path: '/signup',
-    element: <SignUp />
+    element: <ProtectedRoute> <SignUp /> </ProtectedRoute>
   },
   {
     path: '/signin',
-    element: <SignIn />
+    element: <ProtectedRoute> <SignIn /> </ProtectedRoute>
   },
   {
     path: '*',
