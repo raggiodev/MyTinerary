@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {RouterProvider, createHashRouter} from "react-router-dom";
+import {Navigate, RouterProvider, createHashRouter} from "react-router-dom";
 import Main from "./components/Main";
 import Cities from "./pages/Cities";
 import Details from "./pages/Details";
@@ -9,6 +9,14 @@ import SignIn from "./pages/SignIn";
 import Error404 from "./pages/Error404";
 import {useDispatch} from "react-redux";
 import {logInWithToken} from "./redux/actions/userActions";
+import {UseSelector} from "react-redux/es/hooks/useSelector";
+
+const ProtectedRoute = ({children}) => {
+  const isOnline = useSelector(store => store.userReducer.isOnline);
+
+  return isOnline ? <Navigate to="/" /> : children;
+
+}
 
 // const router = createHashRouter([
 //   {
