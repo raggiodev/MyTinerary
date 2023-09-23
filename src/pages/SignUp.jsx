@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -30,15 +30,25 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!terms) {
-      toast.error("ERROR");
+      toast.error("ERROR: Please accept the terms and conditions.");
       return;
     }
+
+    const userData = repeatPassword.current.value;
+
+    if (userData.password !== repeatPassword) {
+      toast.error("ERROR: Passwords do not match.");
+      return;
+    }
+
     const actionResult = await dispatch(userSignUp({ ...userData }));
     const result = await unwrapResult(actionResult);
     if (result.token) {
       navigate("/cities");
     }
   };
+
+  const repeatPassword = useRef();
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -136,8 +146,7 @@ const SignUp = () => {
             <div className="mb-4 relative">
               <input
                 name="repeatPassword"
-                onChange={(e) => handleChangeUserData(e)}
-                value={userData.repeatPassword}
+                ref={repeatPassword}
                 aria-describedby="repeatPassword-addon"
                 aria-label="Repeat password"
                 placeholder="Repeat password"
@@ -173,7 +182,7 @@ const SignUp = () => {
             <div className="mb-4">
               <input
                 name="terms"
-                onChange={(terms) => setTerms(!terms)}
+                onChange={() => setTerms(!terms)}
                 type="checkbox"
                 className="w-5 h-5 ease-soft -ml-7 rounded-1.4 checked:bg-gradient-to-tl checked:from-gray-900 checked:to-slate-800 after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100"
                 id="terms"
