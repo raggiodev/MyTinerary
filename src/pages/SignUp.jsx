@@ -20,8 +20,7 @@ const SignUp = () => {
     name: "",
     email: "",
     password: "",
-    photo: "",
-    terms: false,
+    photo: ""
   });
 
   const handleChangeUserData = (e) => {
@@ -31,7 +30,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!terms) {
-      toast.error("Error");
+      toast.error("ERROR");
       return;
     }
     const actionResult = await dispatch(userSignUp({ ...userData }));
@@ -64,12 +63,6 @@ const SignUp = () => {
       }
     },
   });
-
-  const handleChangeData = (e) => {
-    setUserData((prevState) => {
-      return { ...prevState, [e.target.name]: e.target.value }
-    });
-  };
 
   return (
     <div className="w-full max-w-screen-lg mx-auto mt-64">
@@ -180,7 +173,7 @@ const SignUp = () => {
             <div className="mb-4">
               <input
                 name="terms"
-                onChange={setTerms(!terms)}
+                onChange={(terms) => setTerms(!terms)}
                 type="checkbox"
                 className="w-5 h-5 ease-soft -ml-7 rounded-1.4 checked:bg-gradient-to-tl checked:from-gray-900 checked:to-slate-800 after:duration-250 after:ease-soft-in-out duration-250 relative float-left mt-1 cursor-pointer appearance-none border border-solid border-slate-200 bg-white bg-contain bg-center bg-no-repeat align-top transition-all after:absolute after:flex after:h-full after:w-full after:items-center after:justify-center after:text-white after:opacity-0 after:transition-all checked:border-0 checked:border-transparent checked:bg-transparent checked:after:opacity-100"
                 id="terms"
