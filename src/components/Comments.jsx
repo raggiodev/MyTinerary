@@ -2,7 +2,7 @@ import {useEffect, useState, useRef} from "react";
 import {BsSendFill} from "react-icons/bs";
 import {useSelector} from "react-redux";
 import {toast} from "react-toastify";
-import {apiURL} from "../Utils/apiURL.js";
+import {apiURL} from "../utils/apiURL.js";
 import axios from "axios";
 
 const Comments = ({ itineraryId }) => {

@@ -79,7 +79,7 @@ const Itinerary = ({ data }) => {
         onClick={() => setShowActivities(!showActivities)}
         className="cursor-pointer p-2 text-blue-500 hover:underline"
       >
-        View More
+        View Activities!
         <BsChevronDown
           size="1rem"
           className={`${
