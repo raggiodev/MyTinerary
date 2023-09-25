@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Navigate, RouterProvider, createHashRouter} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import {logInWithToken} from "./redux/actions/userActions";
-import {Analytics} from "@vercel/analytics";
+import {Analytics} from "@vercel/analytics/react";
 import Main from "./components/Main";
 import Cities from "./pages/Cities";
 import Details from "./pages/Details";
