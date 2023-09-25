@@ -13,6 +13,7 @@
     "@formkit/auto-animate": "^0.7.0",
     "@react-oauth/google": "^0.11.1",
     "@reduxjs/toolkit": "^1.9.5",
+    "@vercel/analytics": "^1.0.2",
     "axios": "^1.5.0",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
