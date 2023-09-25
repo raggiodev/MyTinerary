@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import {Provider} from "react-redux";
 import {GoogleOAuthProvider} from "@react-oauth/google";
 import {ToastContainer} from "react-toastify";
-import {inject} from '@vercel/analytics';
 import "react-toastify/dist/ReactToastify.css";
 import store from "./redux/store.js";
 import App from "./App.jsx";
@@ -27,5 +26,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </GoogleOAuthProvider>
   </Provider>
 );
-
-inject();
