@@ -1,18 +1,19 @@
 import React, {useEffect} from "react";
 import {Navigate, RouterProvider, createHashRouter} from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
+import {logInWithToken} from "./redux/actions/userActions";
+import {Analytics} from "@vercel/analytics";
 import Main from "./components/Main";
 import Cities from "./pages/Cities";
 import Details from "./pages/Details";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Error404 from "./pages/Error404";
-import {useSelector, useDispatch} from "react-redux";
-import {logInWithToken} from "./redux/actions/userActions";
 
 const ProtectedRoute = ({ children }) => {
-  const isOnline = useSelector((store) => store.userSignUpReducer.isOnline)
+  const isOnline = useSelector((store) => store.userSignUpReducer.isOnline);
 
-  return isOnline ? <Navigate to="/" /> : children
+  return isOnline ? <Navigate to="/" /> : children;
 };
 
 const router = createHashRouter([
@@ -57,7 +58,12 @@ function App() {
     dispatch(logInWithToken());
   }, [dispatch]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Analytics />
+    </>
+  );
 }
 
 export default App;
