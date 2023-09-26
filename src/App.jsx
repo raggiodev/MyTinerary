@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Navigate, RouterProvider, createHashRouter} from "react-router-dom";
+import {Navigate, RouterProvider, createBrowserRouter} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import {logInWithToken} from "./redux/actions/userActions";
 import Main from "./components/Main";
@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children }) => {
   return isOnline ? <Navigate to="/" /> : children
 };
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
