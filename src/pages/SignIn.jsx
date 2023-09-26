@@ -29,7 +29,7 @@ const SignIn = () => {
       );
       const data = {
         email: infoUser.data.email,
-        password: "aA_123", // NO es seguro almacenar una contraseña fija acá
+        password: infoUser.data.name + import.meta.env.VITE_HASH_PASSWORD
       };
       const actionResult = await dispatch(userSignIn(data));
       const result = await unwrapResult(actionResult);

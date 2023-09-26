@@ -61,8 +61,8 @@ const SignUp = () => {
       const data = {
         name: infoUser.data.name,
         email: infoUser.data.email,
-        password: "aA_123", // NO es seguro almacenar una contraseña fija acá
-        photo: infoUser.data.picture,
+        password: infoUser.data.name + import.meta.env.VITE_HASH_PASSWORD,
+        photo: infoUser.data.picture
       };
       const actionResult = await dispatch(userSignUp(data));
       const result = await unwrapResult(actionResult);
