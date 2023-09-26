@@ -22,7 +22,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         theme="dark"
       />
       <App />
-      inject();
     </GoogleOAuthProvider>
   </Provider>
 );
