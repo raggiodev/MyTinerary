@@ -1,24 +1,22 @@
 import React, {useEffect} from "react";
-import {useParams, useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import {createCity, fetchItinerariesByCity} from "../redux/actions/cityActions";
+import {useParams, useNavigate} from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Itinerary from "../components/Itinerary";
 import NoItinerariesFound from "../components/NoItinerariesFound";
+import {createCity, createItinerariesByCity} from "../redux/actions/cityActions";
 
 const Details = () => {
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const city = useSelector((store) => store.createCityReducer.city);
-  const itineraries = useSelector(
-    (store) => store.createItinerariesByCityReducer.itineraries
-  );
+  const itineraries = useSelector((store) => store.createItinerariesByCityReducer.itineraries);
 
   useEffect(() => {
     dispatch(createCity(params.id));
-    dispatch(fetchItinerariesByCity(params.id));
+    dispatch(createItinerariesByCity(params.id));
   }, []);
 
   useEffect(() => {

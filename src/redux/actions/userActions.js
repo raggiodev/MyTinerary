@@ -9,12 +9,12 @@ export const userSignUp = createAsyncThunk("userSignUp", async (userData) => {
     const res = await axios.post(apiURL + "auth/signUp", {
       ...userData,
     });
-    return res.data;
+    return res.data
   }
   catch (error) {
     console.log(error);
     toast.error(error.response.data.error);
-    throw new Error(error);
+    throw new Error(error)
   }
 });
 
@@ -23,12 +23,12 @@ export const userSignIn = createAsyncThunk("userSignIn", async (userData) => {
     const res = await axios.post(apiURL + "auth/signIn", {
       ...userData,
     });
-    return res.data;
+    return res.data
   }
   catch (error) {
     console.log(error);
     toast.error(error.response.data.error);
-    throw new Error(error);
+    throw new Error(error)
   }
 });
 
@@ -44,6 +44,6 @@ export const logInWithToken = createAsyncThunk('logInWithToken', async () => {
 
 export const userLogOut = createAction("userLogOut", () => {
   return {
-    payload: "",
+    payload: ""
   };
 });

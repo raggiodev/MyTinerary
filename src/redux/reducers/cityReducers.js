@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {createCity, createAllCities, filterCities, fetchItinerariesByCity} from "../actions/cityActions.js";
+import {createCity, createAllCities, filterCities, createItinerariesByCity} from "../actions/cityActions.js";
 
 const initialState = {
   cities: [],
@@ -12,7 +12,7 @@ export const createCityReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(createCity.fulfilled, (store, action) => {
       const newCity = { ...store, city: action.payload };
-      return newCity;
+      return newCity
     })
     .addCase(createCity.pending, (store) => {
       return {
@@ -49,6 +49,7 @@ export const createAllCitiesReducer = createReducer(initialState, (builder) => {
         citiesFiltered: []
       };
     })
+
     .addCase(filterCities, (store, action) => {
       const searchCities = action.payload.toLowerCase().trim();
       const newFilteredCities = store.cities.filter((c) =>
@@ -61,25 +62,23 @@ export const createAllCitiesReducer = createReducer(initialState, (builder) => {
     });
 });
 
-export const readItinerariesByCityReducer = createReducer(
-  initialState,
-  (builder) => {
-    builder
-      .addCase(fetchItinerariesByCity.fulfilled, (store, action) => {
-        const newItineraries = { ...store, itineraries: action.payload };
-        return newItineraries;
-      })
-      .addCase(fetchItinerariesByCity.pending, (store) => {
-        return {
-          ...store,
-          itineraries: "LOADING..."
-        };
-      })
-      .addCase(fetchItinerariesByCity.rejected, (store) => {
-        return {
-          ...store,
-          itineraries: []
-        };
-      });
+export const createItinerariesByCityReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(createItinerariesByCity.fulfilled, (store, action) => {
+      const newItineraries = { ...store, itineraries: action.payload };
+      return newItineraries;
+    })
+    .addCase(createItinerariesByCity.pending, (store) => {
+      return {
+        ...store,
+        itineraries: "LOADING..."
+      };
+    })
+    .addCase(createItinerariesByCity.rejected, (store) => {
+      return {
+        ...store,
+        itineraries: []
+      };
+    });
   }
 );

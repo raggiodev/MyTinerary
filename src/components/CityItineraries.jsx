@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
-import {fetchItinerariesByCity} from "../redux/actions/itineraryActions";
+import {createItinerariesByCity} from "../redux/actions/itineraryActions";
 
 const CityItineraries = () => {
   const { cityId } = useParams();
@@ -9,7 +9,7 @@ const CityItineraries = () => {
   const itineraries = useSelector((state) => state.itineraries.itineraries);
 
   useEffect(() => {
-    dispatch(fetchItinerariesByCity(cityId));
+    dispatch(createItinerariesByCity(cityId));
   }, [cityId, dispatch]);
 
   return (
