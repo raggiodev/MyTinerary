@@ -1,9 +1,9 @@
-import {useEffect, useState, useRef} from "react";
+import axios from "axios";
+import {toast} from "react-toastify";
 import {BsSendFill} from "react-icons/bs";
 import {useSelector} from "react-redux";
-import {toast} from "react-toastify";
+import {useEffect, useState, useRef} from "react";
 import {apiURL} from "../utils/apiURL.js";
-import axios from "axios";
 
 const Comments = ({ itineraryId }) => {
   const [comments, setComments] = useState([]);
@@ -56,21 +56,26 @@ const Comments = ({ itineraryId }) => {
   return (
     <div>
       <div>
-        {comments &&
+        {comments.length === 0 ? (
+          <div>No comments yet. Be the first!</div>
+        ) : (
           comments.map((comment, indexMap) => {
             return (
               <div key={indexMap}>
-                <img src={comment.userId.photo} alt={comment.userId.name} />
+                <img
+                  src={comment.userId?.photo || "default_photo_url"}
+                  alt={comment.userId?.name || "Unknown User"}
+                />
                 <div>
-                  <h5>{comment.userId.name}</h5>
+                  <h5>{comment.userId?.name || "Unknown User"}</h5>
                   <p>{comment.text}</p>
                 </div>
               </div>
             );
-          })}
+          })
+        )}
       </div>
       <div>
-        <h4>Leave your Comment</h4>
         <textarea
           ref={commentTextArea}
           name="commentTextArea"
@@ -79,7 +84,8 @@ const Comments = ({ itineraryId }) => {
           placeholder=""
           rows="5"
           cols="45"
-        ></textarea>
+        >
+        </textarea>
         <BsSendFill onClick={sendComment} />
       </div>
     </div>

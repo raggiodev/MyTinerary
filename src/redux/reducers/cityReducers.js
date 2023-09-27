@@ -17,7 +17,7 @@ export const createCityReducer = createReducer(initialState, (builder) => {
     .addCase(createCity.pending, (store) => {
       return {
         ...store,
-        city: "LOADING..."
+        city: "loading"
       };
     })
     .addCase(createCity.rejected, (store) => {
@@ -40,7 +40,7 @@ export const createAllCitiesReducer = createReducer(initialState, (builder) => {
     .addCase(createAllCities.pending, (store) => {
       return {
         ...store,
-        citiesFiltered: "LOADING..."
+        citiesFiltered: "loading"
       };
     })
     .addCase(createAllCities.rejected, (store) => {
@@ -71,7 +71,7 @@ export const createItinerariesByCityReducer = createReducer(initialState, (build
     .addCase(createItinerariesByCity.pending, (store) => {
       return {
         ...store,
-        itineraries: "LOADING..."
+        itineraries: "loading"
       };
     })
     .addCase(createItinerariesByCity.rejected, (store) => {

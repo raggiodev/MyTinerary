@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import Card from "../components/Card";
-import {createAllCities, filterCities} from "../redux/actions/cityActions";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import {createAllCities, filterCities} from "../redux/actions/cityActions";
 
 const Cities = () => {
   const dispatch = useDispatch();
@@ -45,8 +45,10 @@ const Cities = () => {
               <h1 className="text-3xl font-bold mb-2">
                 Oh, oh mdfk!, <span className="text-blue-500">Sorry...</span>
               </h1>
-              <h3 className="text-lg">There´s no content for that search.</h3>
+              <h3 className="text-lg">No luck with your search.</h3>
             </section>
+          ) : cities == "loading" ? (
+            <span>LOADING...</span>
           ) : (
             cities.map((data, indexMap) => (
               <Link to={`/city/${data.city}`} key={indexMap}>

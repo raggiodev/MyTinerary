@@ -23,6 +23,13 @@ const Details = () => {
     document.title = `${city.city} - MyTinerary`;
   }, [city]);
 
+  if (city == "loading") {
+    return (
+      <main>
+        <span>LOADING...</span>
+      </main>
+    )
+}
   if (!city || !city.city || !itineraries) {
     return <div className="text-center text-8xl mt-8">LOADING...</div>;
   }
@@ -62,9 +69,11 @@ const Details = () => {
         </div>
       </div>
       <div className="container mx-auto py-6 px-4">
-        {itineraries.length === 0 ? (
-          <NoItinerariesFound />
-        ) : (
+        {itineraries.length === 0
+        ? <NoItinerariesFound />
+        : (itineraries == "loading")
+        ? <span>LOADING...</span>
+        : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {itineraries.map((itinerary, index) => {
               return <Itinerary data={itinerary} key={index} />;
