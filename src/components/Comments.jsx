@@ -1,6 +1,7 @@
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useSelector} from "react-redux";
+import {formatDistanceToNow} from "date-fns";
 import {useEffect, useState, useRef} from "react";
 import {BsSendFill, BsPersonCircle, BsPencil, BsTrash} from "react-icons/bs";
 import {apiURL} from "../utils/apiURL.js";
@@ -110,9 +111,16 @@ const Comments = ({ itineraryId }) => {
                 className="w-10 h-10 rounded-full object-cover mr-2"
               />
               <div>
-                <h5 className="text-sm font-semibold mb-1 text-left">
-                  {comment.userId?.name || "Unknown User"}
-                </h5>
+                <div className="flex items-center">
+                  <h5 className="text-sm font-semibold mb-1 text-left">
+                    {comment.userId?.name || "Unknown User"}
+                  </h5>
+                  <p className="text-xs text-gray-600 mb-1 ml-4">
+                    {formatDistanceToNow(new Date(comment.createdAt), {
+                      addSuffix: true,
+                    })}
+                  </p>
+                </div>
                 {editingIndex === index ? (
                   <div className="flex">
                     <textarea
@@ -129,9 +137,11 @@ const Comments = ({ itineraryId }) => {
                   </div>
                 ) : (
                   <div>
-                    <p className="text-sm text-gray-800">{comment.text}</p>
+                    <p className="text-sm text-gray-800 text-start">
+                      {comment.text}
+                    </p>
                     {user?._id === comment.userId?._id && (
-                      <div className="mt-2">
+                      <div className="mt-2 text-end">
                         <button
                           onClick={() => {
                             setEditingComment(comment.text);
