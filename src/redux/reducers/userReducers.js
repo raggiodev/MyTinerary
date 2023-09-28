@@ -76,7 +76,7 @@ export const userSignUpReducer = createReducer(initialState, (builder) => {
     .addCase(userLogOut, (store) => {
       if (store.isOnline) {
         localStorageFn.remove("token");
-        toast.success("Good bye, git gud ;)");
+        toast.success("Good bye, git gud 😜");
       }
       return {
         ...store,
