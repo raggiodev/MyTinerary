@@ -6,19 +6,19 @@ import {userSignUp, userSignIn, logInWithToken, userLogOut} from "../actions/use
 const initialState = {
   user: {},
   token: "",
-  isOnline: false
+  isOnline: false,
 };
 
 export const userSignUpReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(userSignUp.fulfilled, (store, action) => {
       localStorageFn.set("token", action.payload.token);
-      toast.success("Welcome to MyTynerary, "+action.payload.response.name);
+      toast.success("Welcome to MyTynerary, " + action.payload.response.name);
       return {
         ...store,
         user: action.payload.response,
         token: action.payload.token,
-        isOnline: true
+        isOnline: true,
       };
     })
     .addCase(userSignUp.rejected, (store) => {
@@ -26,17 +26,19 @@ export const userSignUpReducer = createReducer(initialState, (builder) => {
         ...store,
         user: {},
         token: "",
-        isOnline: false
+        isOnline: false,
       };
     })
     .addCase(userSignIn.fulfilled, (store, action) => {
       localStorageFn.set("token", action.payload.token);
-      toast.success("Ah... you're back here, " + action.payload.response.name) + " ... again";
+      toast.success(
+        "Ah... you're back here, " + action.payload.response.name + " ... again"
+      );
       return {
         ...store,
         user: action.payload.response,
         token: action.payload.token,
-        isOnline: true
+        isOnline: true,
       };
     })
     .addCase(userSignIn.rejected, (store) => {
@@ -44,7 +46,7 @@ export const userSignUpReducer = createReducer(initialState, (builder) => {
         ...store,
         user: {},
         token: "",
-        isOnline: false
+        isOnline: false,
       };
     })
     .addCase(logInWithToken.fulfilled, (store, action) => {
@@ -52,7 +54,7 @@ export const userSignUpReducer = createReducer(initialState, (builder) => {
         ...store,
         user: action.payload.response,
         token: action.payload.token,
-        isOnline: true
+        isOnline: true,
       };
     })
     .addCase(logInWithToken.pending, (store) => {
@@ -60,7 +62,7 @@ export const userSignUpReducer = createReducer(initialState, (builder) => {
         ...store,
         user: {},
         token: "",
-        isOnline: false
+        isOnline: false,
       };
     })
     .addCase(logInWithToken.rejected, (store) => {
@@ -68,17 +70,19 @@ export const userSignUpReducer = createReducer(initialState, (builder) => {
         ...store,
         user: {},
         token: "",
-        isOnline: false
+        isOnline: false,
       };
     })
     .addCase(userLogOut, (store) => {
-      localStorageFn.remove("token");
-      toast.success("Good bye, git gud ;)");
+      if (store.isOnline) {
+        localStorageFn.remove("token");
+        toast.success("Good bye, git gud ;)");
+      }
       return {
         ...store,
         user: {},
         token: "",
-        isOnline: false
+        isOnline: false,
       };
     });
 });

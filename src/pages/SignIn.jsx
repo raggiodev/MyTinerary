@@ -1,14 +1,14 @@
-import React, {useState, useRef} from "react";
+import axios from "axios";
+import {useState, useRef} from "react";
+import {useDispatch } from "react-redux";
+import {unwrapResult} from "@reduxjs/toolkit";
+import {FaEyeSlash, FaEye} from "react-icons/fa6";
+import {useGoogleLogin} from "@react-oauth/google";
 import {NavLink, useNavigate} from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import GoogleLoginButton from "../components/GoogleLoginButton.jsx";
-import axios from "axios";
-import {useGoogleLogin} from "@react-oauth/google";
-import {useDispatch } from "react-redux";
 import {userSignIn} from "../redux/actions/userActions.js";
-import {unwrapResult} from "@reduxjs/toolkit";
-import {FaEyeSlash, FaEye} from "react-icons/fa6";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
