@@ -2,7 +2,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {BsSendFill} from "react-icons/bs";
 import {useSelector} from "react-redux";
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useState, useRef } from "react";
 import {apiURL} from "../utils/apiURL.js";
 
 const Comments = ({ itineraryId }) => {
@@ -57,36 +57,43 @@ const Comments = ({ itineraryId }) => {
     <div>
       <div>
         {comments.length === 0 ? (
-          <div>No comments yet. Be the first!</div>
+          <div className="text-gray-500">No comments yet. Be the first!</div>
         ) : (
           comments.map((comment, indexMap) => {
             return (
-              <div key={indexMap}>
+              <div key={indexMap} className="flex items-start mb-4">
                 <img
                   src={comment.userId?.photo || "default_photo_url"}
                   alt={comment.userId?.name || "Unknown User"}
+                  className="w-10 h-10 rounded-full object-cover mr-2"
                 />
                 <div>
-                  <h5>{comment.userId?.name || "Unknown User"}</h5>
-                  <p>{comment.text}</p>
+                  <h5 className="text-sm font-semibold mb-1 text-left">
+                    {comment.userId?.name || "Unknown User"}
+                  </h5>
+                  <p className="text-sm text-gray-800">{comment.text}</p>
                 </div>
               </div>
             );
           })
         )}
       </div>
-      <div>
+      <div className="mt-4">
         <textarea
           ref={commentTextArea}
           name="commentTextArea"
           minLength="0"
           maxLength="140"
-          placeholder=""
-          rows="5"
-          cols="45"
+          placeholder="Add your comment..."
+          rows="4"
+          className="w-full p-2 rounded-md border border-gray-300 focus:ring focus:ring-blue-300"
+        ></textarea>
+        <button
+          onClick={sendComment}
+          className="mt-2 px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
         >
-        </textarea>
-        <BsSendFill onClick={sendComment} />
+          <BsSendFill className="inline-block mr-2" /> Post Comment
+        </button>
       </div>
     </div>
   );

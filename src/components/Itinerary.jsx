@@ -1,6 +1,6 @@
-import React, {useState} from "react";
-import {FaHeart, FaRegHeart, FaMoneyBillWave} from "react-icons/fa";
-import {BsChevronDown} from "react-icons/bs";
+import React, { useState } from "react";
+import { FaHeart, FaRegHeart, FaMoneyBillWave } from "react-icons/fa";
+import { BsChevronDown } from "react-icons/bs";
 import Activities from "./Activities";
 import Comments from "./Comments";
 
@@ -35,8 +35,11 @@ const Itinerary = ({ data }) => {
     <div className="border rounded-md overflow-hidden text-center">
       <h1 className="text-2xl font-bold p-2">{data.title}</h1>
       <div
-        style={{ backgroundImage: `url(${data.photo})` }}
-        className="h-80 bg-cover bg-center relative"
+        style={{
+          backgroundImage: `url(${data.photo})`,
+          height: "20em",
+        }}
+        className="bg-cover bg-center relative"
       >
         <div className="absolute top-2 right-2">
           <div
@@ -79,16 +82,18 @@ const Itinerary = ({ data }) => {
         onClick={() => setShowActivities(!showActivities)}
         className="cursor-pointer p-2 text-blue-500 hover:underline"
       >
-        View Activities!
-        <BsChevronDown
-          size="1rem"
-          className={`${
-            showActivities ? "transform rotate-180" : ""
-          } transition-transform duration-500 ease-in-out`}
-        />
+        <div className="flex justify-center items-center">
+          View Activities!
+          <BsChevronDown
+            size="1rem"
+            className={`${
+              showActivities ? "transform rotate-180" : ""
+            } ml-1 transition-transform duration-500 ease-in-out`}
+          />
+        </div>
       </div>
       {showActivities && (
-        <div className={expanded ? "expanded" : "collapsed expanded"}>
+        <div className={expanded ? "expanded" : "collapsed expanded mb-8"}>
           <Activities itineraryId={data._id} />
         </div>
       )}
