@@ -1,13 +1,14 @@
-import React, {useEffect} from "react";
-import {Navigate, RouterProvider, createBrowserRouter} from "react-router-dom";
+import {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {logInWithToken} from "./redux/actions/userActions";
+import {Navigate, RouterProvider, createBrowserRouter} from "react-router-dom";
 import Main from "./components/Main";
 import Cities from "./pages/Cities";
+import About from "./pages/About";
 import Details from "./pages/Details";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Error404 from "./pages/Error404";
+import {logInWithToken} from "./redux/actions/userActions";
 
 const ProtectedRoute = ({ children }) => {
   const isOnline = useSelector((store) => store.userSignUpReducer.isOnline)
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/cities",
     element: <Cities />,
+  },
+  {
+    path: "/about",
+    element: <About />,
   },
   {
     path: "/city/:id",

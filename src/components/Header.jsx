@@ -1,34 +1,36 @@
-import React, { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.svg";
+import {useState} from "react";
+import {FaUser} from "react-icons/fa";
+import {useSelector, useDispatch} from "react-redux";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import Clock from "./Clock";
-import { useSelector, useDispatch } from "react-redux";
-import { userLogOut } from "../redux/actions/userActions.js";
-import { FaUser } from "react-icons/fa";
+import logo from "../assets/logo.svg";
+import {userLogOut} from "../redux/actions/userActions.js";
 import "../../src/index.css";
 
 const Header = () => {
-  const [navOpen, setNavOpen] = useState(false)
-  const user = useSelector(store => store.userSignUpReducer.user)
-  
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const [navOpen, setNavOpen] = useState(false);
+  const user = useSelector((store) => store.userSignUpReducer.user);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const logIn = async () => {
-    setNavOpen(!navOpen)
-    await dispatch(userLogOut())
-    navigate('/signin')
+    setNavOpen(!navOpen);
+    await dispatch(userLogOut());
+    navigate("/signin");
   };
 
   return (
     <header className="bg-gradient-to-r from-purple-700 via-pink-500 to-red-600 text-white py-4">
-      <div className="container mx-auto flex justify-between items-center px-4 md:px-10">
-        <div className="flex items-center">
+      <div className="container mx-auto flex flex-col md:flex-row justify-center md:justify-between items-center px-4 md:px-10">
+        {/* Logo */}
+        <div className="flex items-center mb-4 md:mb-0">
           <Link to="/" className="flex items-center text-2xl font-semibold">
             <img src={logo} alt="MyTinerary Logo" className="w-8 h-8 mr-2" />
             MyTinerary
           </Link>
         </div>
+        {/* Menu principal */}
         <div className="hidden md:flex space-x-4">
           <NavLink
             to="/"
@@ -45,7 +47,16 @@ const Header = () => {
           >
             Cities
           </NavLink>
+          {/* About */}
+          <NavLink
+            to="/about"
+            className="text-lg hover:text-gray-300"
+            activeClassName="border-b-2 border-white"
+            >
+            About
+          </NavLink>
         </div>
+        {/* Botón de menú para dispositivos móviles */}
         <nav className="md:hidden flex items-center">
           <button
             onClick={() => setNavOpen(!navOpen)}
@@ -66,13 +77,14 @@ const Header = () => {
             </svg>
           </button>
         </nav>
+        {/* Menú de usuario y botón de registro */}
         <nav
           className={`md:flex items-center space-x-4 ${
             navOpen ? "block" : "hidden"
           }`}
         >
           <div className="md:flex space-x-4">
-            { user && Object.keys(user).length !== 0 ? (
+            {user && Object.keys(user).length !== 0 ? (
               <button onClick={logIn}>
                 <img
                   src={user?.photo}
@@ -83,10 +95,10 @@ const Header = () => {
               </button>
             ) : (
               <button onClick={logIn}>
-                <FaUser className="center-svg"/>
+                <FaUser className="center-svg" />
                 Login
               </button>
-            ) }
+            )}
             <NavLink
               to="/signup"
               className="px-4 py-2 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center"
@@ -95,6 +107,9 @@ const Header = () => {
             </NavLink>
           </div>
         </nav>
+      </div>
+      {/* Reloj */}
+      <div className="flex justify-center">
         <Clock />
       </div>
     </header>

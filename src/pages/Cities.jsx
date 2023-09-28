@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import Card from "../components/Card";
@@ -13,16 +13,10 @@ const Cities = () => {
   );
   const navigate = useNavigate();
 
-  // const [search, setSearch] = useState("");
-
   useEffect(() => {
     document.title = "Cities - MyTinerary";
     dispatch(createAllCities());
   }, [dispatch]);
-
-  // const filterCities = cities.filter((city) =>
-  //   city.city.toLowerCase().trim().startsWith(search.toLowerCase().trim())
-  // );
 
   return (
     <>
@@ -33,8 +27,6 @@ const Cities = () => {
             type="text"
             name="search"
             placeholder="Search By City"
-            // value={search}
-            // onChange={(e) => setSearch(e.target.value)}
             onChange={(e) => dispatch(filterCities(e.target.value))}
             className="border rounded p-2 w-full"
           />

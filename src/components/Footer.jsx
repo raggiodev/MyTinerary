@@ -1,4 +1,3 @@
-import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {FaWhatsapp, FaTwitter, FaEnvelope} from 'react-icons/fa';
 
@@ -12,13 +11,13 @@ const Footer = () => {
         </nav>
         <div className="flex justify-center space-x-4">
           <a href="#" className="hover:text-gray-400 text-xl">
-            <FaWhatsapp /> {/* Agrega el ícono de WhatsApp */}
+            <FaWhatsapp /> {/* WhatsApp icon */}
           </a>
           <a href="https://twitter.com/JoeTheorium" className="hover:text-gray-400 text-xl">
-            <FaTwitter /> {/* Agrega el ícono de Twitter */}
+            <FaTwitter /> {/* Twitter/X icon */}
           </a>
           <a href="mailto:fernandoandresraggio@gmail.com" className="hover:text-gray-400 text-xl">
-            <FaEnvelope /> {/* Agrega el ícono de Gmail */}
+            <FaEnvelope /> {/* Gmail icon */}
           </a>
         </div>
         <p className="text-center mt-4">&copy; 2023 MyTinerary - <a href="https://www.github.com/JoeTheorium">JoeTheorium</a> - All rights reserved.</p>
