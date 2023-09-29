@@ -1,5 +1,3 @@
-import React from "react";
-
 const Card = ({ data }) => {
   return (
     <div className="bg-white rounded shadow-md p-4">

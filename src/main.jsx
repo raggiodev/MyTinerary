@@ -1,8 +1,7 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import {Provider} from "react-redux";
-import {GoogleOAuthProvider} from "@react-oauth/google";
 import {ToastContainer} from "react-toastify";
+import {GoogleOAuthProvider} from "@react-oauth/google";
 import "react-toastify/dist/ReactToastify.css";
 import App from "./App.jsx";
 import store from "./redux/store.js";

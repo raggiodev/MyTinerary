@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
 import {NavLink} from "react-router-dom";
+import {useState, useEffect} from "react";
 import error404 from "../assets/error404.jpeg";
 
 function calculateWinner(squares) {
@@ -34,19 +34,17 @@ const Error404 = () => {
 
   useEffect(() => {
     if (!xIsNext && showGame && !winner) {
-      // Simular el movimiento de una IA
       const squares = [...board];
       let randomIndex;
       do {
         randomIndex = Math.floor(Math.random() * 9);
-      } while (squares[randomIndex]);
+      }
+      while (squares[randomIndex]);
       squares[randomIndex] = "O";
 
-      // Actualizar estado del tablero
       setBoard(squares);
       setXIsNext(true);
 
-      // Comprobar si hay ganador después del movimiento de la IA
       const gameWinner = calculateWinner(squares);
       if (gameWinner) {
         setWinner(gameWinner);
@@ -66,11 +64,9 @@ const Error404 = () => {
     const squares = [...board];
     squares[index] = xIsNext ? "X" : "O";
 
-    // Actualizar estado tablero
     setBoard(squares);
     setXIsNext(!xIsNext);
 
-    // Comprobar si hay ganador después del movimiento del user
     const gameWinner = calculateWinner(squares);
     if (gameWinner) {
       setWinner(gameWinner);
@@ -95,12 +91,15 @@ const Error404 = () => {
   };
 
   let status;
+
   if (winner) {
-    status = `Ganador: ${winner}`;
-  } else if (!board.includes(null)) {
-    status = "Empate";
-  } else {
-    status = `Siguiente jugador: ${xIsNext ? "X" : "O"}`;
+    status = `WINNER!: ${winner}`;
+  }
+  else if (!board.includes(null)) {
+    status = "DRAW !";
+  }
+  else {
+    status = `Next Player: ${xIsNext ? "X" : "O"}`;
   }
 
   return (
@@ -110,7 +109,7 @@ const Error404 = () => {
           ERROR <span className="text-red-500">404</span>
         </h1>
         <h3 className="text-lg">
-          Sorry, the page you´re looking for doesn´t exist
+          Sorry, the page you're looking for doesn't exist
         </h3>
         <NavLink
           to="/"
@@ -130,8 +129,7 @@ const Error404 = () => {
           />
         </div>
       </aside>
-
-      <div className="error-404">
+      <div>
         <div style={{ display: showGame ? "none" : "block" }}>
           <button
             onClick={toggleGame}
@@ -141,9 +139,9 @@ const Error404 = () => {
           </button>
         </div>
         {showGame && (
-          <div className="tictactoe-game">
-            <div className="status text-xl font-semibold mb-4">{status}</div>
-            <div className="board grid grid-cols-3 gap-4">
+          <div>
+            <div className="text-xl font-semibold mb-4">{status}</div>
+            <div className="grid grid-cols-3 gap-4">
               {Array.from({ length: 9 }, (_, index) => renderSquare(index))}
             </div>
             {(winner || !board.includes(null)) && (
@@ -152,7 +150,7 @@ const Error404 = () => {
                   onClick={resetGame}
                   className="px-6 py-3 border rounded border-gray-400 hover:border-gray-600 bg-transparent cursor-pointer transform hover:scale-105 transition-transform duration-300"
                 >
-                  Reiniciar
+                  RESTART
                 </button>
               </div>
             )}

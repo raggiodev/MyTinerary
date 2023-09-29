@@ -1,33 +1,35 @@
-import React from "react";
-import {useGoogleLogin} from "@react-oauth/google";
 import axios from "axios";
-// import jwtDecode from "jwt-decode";
+import {useGoogleLogin} from "@react-oauth/google";
 import "../../src/index.css";
 
-const GoogleLoginButton = ({fn}) => {
+const GoogleLoginButton = ({ fn }) => {
   const login = useGoogleLogin({
-
-    onSuccess: async tokenResponse => {
-      console.log(tokenResponse)
-      // const infoUser = jwtDecode(tokenResponse.credential)
-      const {data} = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
-        headers: {
-          Authorization: "Bearer " + tokenResponse.access_token
+    onSuccess: async (tokenResponse) => {
+      console.log(tokenResponse);
+      const { data } = await axios.get(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: {
+            Authorization: "Bearer " + tokenResponse.access_token,
+          },
         }
-      })
+      );
       fn({
         email: data.email,
         name: data.given_name + " " + data.family_name,
         password: "aA_123",
         photo: data.picture,
-        terms: true
-      })
+        terms: true,
+      });
       console.log(data);
     },
-  })
+  });
 
   return (
-    <div onClick={() => login()} className="center-svg w-3/12 max-w-full px-1 mr-auto flex-0">
+    <div
+      onClick={() => login()}
+      className="center-svg w-3/12 max-w-full px-1 mr-auto flex-0"
+    >
       <a className="flex justify-center w-full px-6 py-3 mb-4 font-bold text-center text-gray-200 uppercase align-middle transition-all bg-transparent border border-gray-200 border-solid rounded-lg shadow-none cursor-pointer hover:scale-102 leading-pro text-xs ease-soft-in tracking-tight-soft bg-150 bg-x-25 hover:bg-transparent hover:opacity-75">
         <svg
           xmlnsXlink="http://www.w3.org/1999/xlink"

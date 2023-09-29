@@ -5,25 +5,25 @@ const initialState = {
   cities: [],
   citiesFiltered: [],
   city: {},
-  itineraries: []
+  itineraries: [],
 };
 
 export const createCityReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(createCity.fulfilled, (store, action) => {
       const newCity = { ...store, city: action.payload };
-      return newCity
+      return newCity;
     })
     .addCase(createCity.pending, (store) => {
       return {
         ...store,
-        city: "loading"
+        city: "loading",
       };
     })
     .addCase(createCity.rejected, (store) => {
       return {
         ...store,
-        city: {}
+        city: {},
       };
     });
 });
@@ -34,22 +34,21 @@ export const createAllCitiesReducer = createReducer(initialState, (builder) => {
       return {
         ...store,
         cities: action.payload,
-        citiesFiltered: action.payload
+        citiesFiltered: action.payload,
       };
     })
     .addCase(createAllCities.pending, (store) => {
       return {
         ...store,
-        citiesFiltered: "loading"
+        citiesFiltered: "loading",
       };
     })
     .addCase(createAllCities.rejected, (store) => {
       return {
         ...store,
-        citiesFiltered: []
+        citiesFiltered: [],
       };
     })
-
     .addCase(filterCities, (store, action) => {
       const searchCities = action.payload.toLowerCase().trim();
       const newFilteredCities = store.cities.filter((c) =>
@@ -57,28 +56,30 @@ export const createAllCitiesReducer = createReducer(initialState, (builder) => {
       );
       return {
         ...store,
-        citiesFiltered: newFilteredCities
+        citiesFiltered: newFilteredCities,
       };
     });
 });
 
-export const createItinerariesByCityReducer = createReducer(initialState, (builder) => {
-  builder
-    .addCase(createItinerariesByCity.fulfilled, (store, action) => {
-      const newItineraries = { ...store, itineraries: action.payload };
-      return newItineraries;
-    })
-    .addCase(createItinerariesByCity.pending, (store) => {
-      return {
-        ...store,
-        itineraries: "loading"
-      };
-    })
-    .addCase(createItinerariesByCity.rejected, (store) => {
-      return {
-        ...store,
-        itineraries: []
-      };
-    });
+export const createItinerariesByCityReducer = createReducer(
+  initialState,
+  (builder) => {
+    builder
+      .addCase(createItinerariesByCity.fulfilled, (store, action) => {
+        const newItineraries = { ...store, itineraries: action.payload };
+        return newItineraries;
+      })
+      .addCase(createItinerariesByCity.pending, (store) => {
+        return {
+          ...store,
+          itineraries: "loading",
+        };
+      })
+      .addCase(createItinerariesByCity.rejected, (store) => {
+        return {
+          ...store,
+          itineraries: [],
+        };
+      });
   }
 );

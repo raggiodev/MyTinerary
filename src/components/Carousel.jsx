@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
 import cities from "../data/cities";
 import "../index.css";
@@ -58,7 +58,6 @@ const Carousel = () => {
               </div>
             ))}
           </div>
-
           <button
             onClick={next}
             className="cursor-pointer focus:outline-none p-2 transition-transform transform hover:scale-110"

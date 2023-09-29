@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {useParams, useNavigate} from "react-router-dom";
 import Header from "../components/Header";
@@ -12,7 +12,9 @@ const Details = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const city = useSelector((store) => store.createCityReducer.city);
-  const itineraries = useSelector((store) => store.createItinerariesByCityReducer.itineraries);
+  const itineraries = useSelector(
+    (store) => store.createItinerariesByCityReducer.itineraries
+  );
 
   useEffect(() => {
     dispatch(createCity(params.id));
@@ -28,8 +30,8 @@ const Details = () => {
       <main>
         <span>LOADING...</span>
       </main>
-    )
-}
+    );
+  }
   if (!city || !city.city || !itineraries) {
     return <div className="text-center text-8xl mt-8">LOADING...</div>;
   }
@@ -69,11 +71,11 @@ const Details = () => {
         </div>
       </div>
       <div className="container mx-auto py-6 px-4">
-        {itineraries.length === 0
-        ? <NoItinerariesFound />
-        : (itineraries == "loading")
-        ? <span>LOADING...</span>
-        : (
+        {itineraries.length === 0 ? (
+          <NoItinerariesFound />
+        ) : itineraries == "loading" ? (
+          <span>LOADING...</span>
+        ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {itineraries.map((itinerary, index) => {
               return <Itinerary data={itinerary} key={index} />;

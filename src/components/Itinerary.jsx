@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import { FaHeart, FaRegHeart, FaMoneyBillWave } from "react-icons/fa";
-import { BsChevronDown } from "react-icons/bs";
-import Activities from "./Activities";
+import {useState} from "react";
+import {FaHeart, FaRegHeart, FaMoneyBillWave, FaChevronDown} from "react-icons/fa";
 import Comments from "./Comments";
+import Activities from "./Activities";
 
 const Itinerary = ({ data }) => {
-  const [expanded, setExpanded] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [likes, setLikes] = useState(data.likes);
   const [showActivities, setShowActivities] = useState(false);
@@ -84,7 +82,7 @@ const Itinerary = ({ data }) => {
       >
         <div className="flex justify-center items-center">
           View Activities!
-          <BsChevronDown
+          <FaChevronDown
             size="1rem"
             className={`${
               showActivities ? "transform rotate-180" : ""
@@ -93,7 +91,7 @@ const Itinerary = ({ data }) => {
         </div>
       </div>
       {showActivities && (
-        <div className={expanded ? "expanded" : "collapsed expanded mb-8"}>
+        <div className="mb-8">
           <Activities itineraryId={data._id} />
         </div>
       )}

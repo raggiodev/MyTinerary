@@ -1,15 +1,15 @@
-import React, {useState, useRef} from "react";
+import axios from "axios";
+import {toast} from "react-toastify";
+import {useState, useRef} from "react";
+import {useDispatch} from "react-redux";
+import {unwrapResult} from "@reduxjs/toolkit";
+import {FaEyeSlash, FaEye} from "react-icons/fa6";
+import {useGoogleLogin} from "@react-oauth/google";
 import {NavLink, useNavigate} from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import GoogleLoginButton from "../components/GoogleLoginButton.jsx";
-import axios from "axios";
-import {useGoogleLogin} from "@react-oauth/google";
-import {useDispatch} from "react-redux";
 import {userSignUp} from "../redux/actions/userActions.js";
-import {unwrapResult} from "@reduxjs/toolkit";
-import {FaEyeSlash, FaEye} from "react-icons/fa6";
-import {toast} from "react-toastify";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -21,9 +21,8 @@ const SignUp = () => {
     name: "",
     email: "",
     password: "",
-    photo: ""
+    photo: "",
   });
-
 
   const handleChangeUserData = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -62,7 +61,7 @@ const SignUp = () => {
         name: infoUser.data.name,
         email: infoUser.data.email,
         password: infoUser.data.name + import.meta.env.VITE_HASH_PASSWORD,
-        photo: infoUser.data.picture
+        photo: infoUser.data.picture,
       };
       const actionResult = await dispatch(userSignUp(data));
       const result = await unwrapResult(actionResult);
@@ -98,7 +97,7 @@ const SignUp = () => {
                 name="name"
                 onChange={(e) => handleChangeUserData(e)}
                 value={userData.name}
-                aria-describedby="email-addon"
+                aria-describedby="name-addon"
                 aria-label="Name"
                 placeholder="Name"
                 className="w-full px-4 py-2 text-gray-700 bg-white border rounded-lg shadow-sm focus:ring focus:ring-blue-300 focus:outline-none"

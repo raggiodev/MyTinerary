@@ -1,7 +1,7 @@
 import axios from "axios";
+import {TbGoGame} from "react-icons/tb";
 import {useEffect, useState} from "react";
 import {apiURL} from "../utils/apiURL.js";
-import {TbGoGame} from "react-icons/tb";
 
 const Activities = ({ itineraryId }) => {
   const [activities, setActivities] = useState([]);
@@ -18,8 +18,7 @@ const Activities = ({ itineraryId }) => {
         <div className="flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-2">
-              No <span className="text-accent">Activities</span> for this
-              Itinerary Yet
+              No Activities for this Itinerary Yet
             </h2>
             <p className="text-gray-500">Feel free to ask for more content.</p>
           </div>
@@ -33,7 +32,7 @@ const Activities = ({ itineraryId }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {activities.map((activity, indexMap) => (
             <div
-              className="activity border rounded-md overflow-hidden"
+              className="border rounded-md overflow-hidden"
               key={indexMap}
             >
               <img

@@ -1,6 +1,6 @@
 import axios from "axios";
 import {useState, useRef} from "react";
-import {useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import {unwrapResult} from "@reduxjs/toolkit";
 import {FaEyeSlash, FaEye} from "react-icons/fa6";
 import {useGoogleLogin} from "@react-oauth/google";
@@ -29,7 +29,7 @@ const SignIn = () => {
       );
       const data = {
         email: infoUser.data.email,
-        password: infoUser.data.name + import.meta.env.VITE_HASH_PASSWORD
+        password: infoUser.data.name + import.meta.env.VITE_HASH_PASSWORD,
       };
       const actionResult = await dispatch(userSignIn(data));
       const result = await unwrapResult(actionResult);
@@ -118,7 +118,7 @@ const SignIn = () => {
               </button>
             </div>
             <p className="mt-4 text-sm text-gray-500">
-              Don´t have an account?{" "}
+              Don't have an account?{" "}
               <NavLink className="font-semibold text-blue-600" to="/signup">
                 Sign up
               </NavLink>

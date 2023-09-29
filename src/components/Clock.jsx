@@ -3,9 +3,11 @@ import {useEffect, useState} from "react";
 const moon = new Date();
 moon.setHours(19);
 moon.setMinutes(30);
+
 const sun = new Date();
 sun.setHours(7);
 sun.setMinutes(30);
+
 const Clock = () => {
   const [hour, setHour] = useState(new Date());
   const [day, setDay] = useState(true);
@@ -25,8 +27,7 @@ const Clock = () => {
   useEffect(() => {
     if (hour > moon || hour < sun) {
       setDay(false);
-    }
-    else {
+    } else {
       setDay(true);
     }
   }, [hour]);
