@@ -10,6 +10,7 @@ import "../../src/index.css";
 const Header = () => {
   const [navOpen, setNavOpen] = useState(false);
   const user = useSelector((store) => store.userSignUpReducer.user);
+  const isOnline = useSelector((store) => store.userSignUpReducer.isOnline);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,14 +24,12 @@ const Header = () => {
   return (
     <header className="bg-gradient-to-r from-purple-700 via-pink-500 to-red-600 text-white py-4">
       <div className="container mx-auto flex flex-col md:flex-row justify-center md:justify-between items-center px-4 md:px-10">
-        {/* Logo */}
         <div className="flex items-center mb-4 md:mb-0">
           <Link to="/" className="flex items-center text-2xl font-semibold">
             <img src={logo} alt="MyTinerary Logo" className="w-8 h-8 mr-2" />
             MyTinerary
           </Link>
         </div>
-        {/* Menu principal */}
         <div className="hidden md:flex space-x-4">
           <NavLink
             to="/"
@@ -47,16 +46,14 @@ const Header = () => {
           >
             Cities
           </NavLink>
-          {/* About */}
           <NavLink
             to="/about"
             className="text-lg hover:text-gray-300"
             activeClassName="border-b-2 border-white"
-            >
+          >
             About
           </NavLink>
         </div>
-        {/* Botón de menú para dispositivos móviles */}
         <nav className="md:hidden flex items-center">
           <button
             onClick={() => setNavOpen(!navOpen)}
@@ -77,7 +74,6 @@ const Header = () => {
             </svg>
           </button>
         </nav>
-        {/* Menú de usuario y botón de registro */}
         <nav
           className={`md:flex items-center space-x-4 ${
             navOpen ? "block" : "hidden"
@@ -94,21 +90,26 @@ const Header = () => {
                 Logout
               </button>
             ) : (
-              <button onClick={logIn}>
-                <FaUser className="center-svg" />
-                Login
-              </button>
+              <>
+                {isOnline ? (
+                  <></>
+                ) : (
+                  <button onClick={logIn}>
+                    <FaUser className="center-svg" />
+                    Login
+                  </button>
+                )}
+                <NavLink
+                  to="/signup"
+                  className="px-4 py-2 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center"
+                >
+                  Get Started
+                </NavLink>
+              </>
             )}
-            <NavLink
-              to="/signup"
-              className="px-4 py-2 rounded-full bg-green-500 hover:bg-green-600 text-white flex items-center"
-            >
-              Get Started
-            </NavLink>
           </div>
         </nav>
       </div>
-      {/* Reloj */}
       <div className="flex justify-center">
         <Clock />
       </div>
