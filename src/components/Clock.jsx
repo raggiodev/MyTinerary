@@ -27,7 +27,8 @@ const Clock = () => {
   useEffect(() => {
     if (hour > moon || hour < sun) {
       setDay(false);
-    } else {
+    }
+    else {
       setDay(true);
     }
   }, [hour]);
@@ -44,7 +45,7 @@ const Clock = () => {
   }
 
   return (
-    <div className="min-w-40 h-40 flex items-center justify-center ">
+    <div className="min-w-10 h-10 flex items-center justify-center ">
       🌙{" "}
       <h1 className="text-white text-xl">{hour.toLocaleTimeString("es-ES")}</h1>
     </div>
