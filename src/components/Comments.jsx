@@ -17,7 +17,7 @@ const Comments = ({ itineraryId }) => {
     axios
       .get(apiURL + "comments/" + itineraryId)
       .then((response) => setComments(response.data.response));
-  }, []);
+  }, [itineraryId]);
 
   const sendComment = async () => {
     if (!user || Object.keys(user).length === 0) {
@@ -168,13 +168,13 @@ const Comments = ({ itineraryId }) => {
                           }}
                           className="text-blue-500 hover:underline focus:outline-none mr-2"
                         >
-                          <BsPencil /> Edit
+                          <BsPencil className="inline-block" /> Edit
                         </button>
                         <button
                           onClick={() => deleteComment(comment._id)}
                           className="text-red-500 hover:underline focus:outline-none"
                         >
-                          <BsTrash /> Delete
+                          <BsTrash className="inline-block" /> Delete
                         </button>
                       </div>
                     )}
