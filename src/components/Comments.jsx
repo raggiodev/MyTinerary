@@ -3,7 +3,7 @@ import {toast} from "react-toastify";
 import {useSelector} from "react-redux";
 import {formatDistanceToNow} from "date-fns";
 import {useEffect, useState, useRef} from "react";
-import {BsSendFill, BsPersonCircle, BsPencil, BsTrash} from "react-icons/bs";
+import {BsSendFill, BsPersonCircle, BsPencil, BsTrash, BsXLg} from "react-icons/bs";
 import {apiURL} from "../utils/apiURL.js";
 
 const Comments = ({ itineraryId }) => {
@@ -82,6 +82,11 @@ const Comments = ({ itineraryId }) => {
     }
   };
 
+  const cancelEditComment = () => {
+    setEditingComment(null);
+    setEditingIndex(-1);
+  };
+
   const deleteComment = async (commentId) => {
     try {
       await axios.delete(apiURL + `comments/${commentId}`);
@@ -130,9 +135,15 @@ const Comments = ({ itineraryId }) => {
                     ></textarea>
                     <button
                       onClick={() => editComment(comment._id, editingComment)}
-                      className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 ml-2"
+                      className="flex justify-center items-center px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 ml-2"
                     >
                       <BsSendFill className="inline-block mr-2" /> Save
+                    </button>
+                    <button
+                      onClick={() => cancelEditComment()}
+                      className="flex justify-center items-center px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 ml-2"
+                    >
+                      <BsXLg className="inline-block mr-2" /> Cancel
                     </button>
                   </div>
                 ) : (
