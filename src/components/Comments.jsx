@@ -63,9 +63,17 @@ const Comments = ({ itineraryId }) => {
       const response = await axios.put(apiURL + `comments/${commentId}`, {
         text: newText,
       });
+      const updatedComment = {
+        ...response.data.response,
+        userId: {
+          _id: user._id,
+          name: user.name,
+          photo: user.photo,
+        },
+      };
       const updatedComments = comments.map((comment) => {
         if (comment._id === commentId) {
-          return response.data.response;
+          return updatedComment;
         }
         else {
           return comment;
